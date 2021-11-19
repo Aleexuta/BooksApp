@@ -9,248 +9,260 @@
     tools:context=".NewBook">
 
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#D69595">
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/newbookauthor"
-                android:layout_width="299dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="12dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Autor"
-                android:textColor="#4E342E"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#D69595">
 
-            <EditText
-                android:id="@+id/publisher"
-                android:layout_width="159dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Publicatie"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/readedfromspinner" />
+                <EditText
+                    android:id="@+id/newbookauthor"
+                    android:layout_width="299dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Autor"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listTitle" />
 
-            <EditText
-                android:id="@+id/year"
-                android:layout_width="97dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="An"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/publisher" />
+                <EditText
+                    android:id="@+id/publisher"
+                    android:layout_width="207dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Publicatie"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/readedfromspinner" />
 
-            <EditText
-                android:id="@+id/listTitle"
-                android:layout_width="303dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="25dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Titlu"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/year"
+                    android:layout_width="97dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="An"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/publisher" />
 
-            <Spinner
-                android:id="@+id/spinnergenre"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newbookauthor"
-                tools:ignore="SpeakableTextPresentCheck" />
+                <EditText
+                    android:id="@+id/listTitle"
+                    android:layout_width="303dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Titlu"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/gridLayout"
-                android:layout_width="296dp"
-                android:layout_height="93dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/languagespinner">
+                <Spinner
+                    android:id="@+id/spinnergenre"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/newbookauthor"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-                <CheckBox
-                    android:id="@+id/readcheck"
-                    android:layout_width="148dp"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="Citita"
-                    app:layout_column="0"
-                    app:layout_row="0" />
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="296dp"
+                    android:layout_height="93dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/languagespinner">
 
-                <CheckBox
-                    android:id="@+id/toreadcheck"
-                    android:layout_width="148dp"
-                    android:layout_height="wrap_content"
-                    android:text="De citit"
-                    app:layout_column="1"
-                    app:layout_row="0" />
+                    <CheckBox
+                        android:id="@+id/readcheck"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Citita"
+                        app:layout_column="0"
+                        app:layout_row="0" />
 
-                <CheckBox
-                    android:id="@+id/owncheck"
-                    android:layout_width="148dp"
-                    android:layout_height="wrap_content"
-                    android:text="In biblioteca"
-                    app:layout_column="0"
-                    app:layout_row="1" />
+                    <CheckBox
+                        android:id="@+id/toreadcheck"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content"
+                        android:text="De citit"
+                        app:layout_column="1"
+                        app:layout_row="0" />
 
-                <CheckBox
-                    android:id="@+id/tobuycheck"
-                    android:layout_width="149dp"
-                    android:layout_height="wrap_content"
-                    android:text="De cumparat"
-                    app:layout_column="1"
-                    app:layout_row="1" />
+                    <CheckBox
+                        android:id="@+id/owncheck"
+                        android:layout_width="148dp"
+                        android:layout_height="wrap_content"
+                        android:text="In biblioteca"
+                        app:layout_column="0"
+                        app:layout_row="1" />
 
-            </androidx.gridlayout.widget.GridLayout>
+                    <CheckBox
+                        android:id="@+id/tobuycheck"
+                        android:layout_width="149dp"
+                        android:layout_height="wrap_content"
+                        android:text="De cumparat"
+                        app:layout_column="1"
+                        app:layout_row="1" />
 
-            <EditText
-                android:id="@+id/Observatii"
-                android:layout_width="281dp"
-                android:layout_height="54dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:ems="10"
-                android:imeActionLabel="Obs."
-                android:inputType="textPersonName"
-                android:text="Observatii"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.584"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/boughtdate" />
+                </androidx.gridlayout.widget.GridLayout>
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="208dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="16dp"
-                android:isIndicator="false"
-                android:progressTint="#FFCC01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-                tools:ignore="SpeakableTextPresentCheck" />
+                <EditText
+                    android:id="@+id/Observatii"
+                    android:layout_width="281dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:ems="10"
+                    android:imeActionLabel="Obs."
+                    android:inputType="textPersonName"
+                    android:text="Observatii"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.584"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/boughtdate" />
 
-            <EditText
-                android:id="@+id/readeddate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Data (dd-mm-yyyy)"
-                android:inputType="date"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-                tools:ignore="SpeakableTextPresentCheck" />
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="208dp"
+                    android:layout_height="47dp"
+                    android:layout_marginTop="16dp"
+                    android:isIndicator="false"
+                    android:progressTint="#FFCC01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-            <EditText
-                android:id="@+id/boughtdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Data cumparare(dd-mm-yy)"
-                android:inputType="date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/year"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Spinner
-                android:id="@+id/readedfromspinner"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coverbooktypespinner"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Spinner
-                android:id="@+id/coverbooktypespinner"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/readeddate"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="193dp"
-                android:layout_height="49dp"
-                android:layout_marginTop="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Observatii">
-
-                <Button
-                    android:id="@+id/okbutton"
+                <EditText
+                    android:id="@+id/readeddate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:onClick="onClick"
-                    android:text="ADD" />
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:hint="Data (dd-mm-yyyy)"
+                    android:inputType="date"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-                <Button
-                    android:id="@+id/cancelbutton"
+                <EditText
+                    android:id="@+id/boughtdate"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:text="CANCEL" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:hint="Data cumparare(dd-mm-yy)"
+                    android:inputType="date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/year"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-            <Spinner
-                android:id="@+id/languagespinner"
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnergenre"
-                tools:ignore="SpeakableTextPresentCheck" />
+                <Spinner
+                    android:id="@+id/readedfromspinner"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.505"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/coverbooktypespinner"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <Spinner
+                    android:id="@+id/coverbooktypespinner"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.505"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/readeddate"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="193dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.52"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Observatii">
+
+                    <Button
+                        android:id="@+id/okbutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:onClick="onClick"
+                        android:text="ADD" />
+
+                    <Button
+                        android:id="@+id/cancelbutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:text="CANCEL" />
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/languagespinner"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnergenre"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

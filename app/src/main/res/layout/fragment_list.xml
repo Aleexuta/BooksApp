@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:windowSoftInputMode="stateHidden"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#A4E8A7"
         android:orientation="vertical">
 
         <LinearLayout
@@ -19,22 +21,22 @@
 
             <Button
                 android:id="@+id/openNewBookFragButton"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="20dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
-                android:text="AddBook"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:text="AddBook" />
 
             <Button
                 android:id="@+id/refreshbutton"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="34dp"
                 android:layout_height="72dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:text="Refresh"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:text="Refresh" />
         </LinearLayout>
 
         <ListView

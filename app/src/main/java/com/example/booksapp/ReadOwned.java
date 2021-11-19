@@ -34,11 +34,11 @@ public class ReadOwned extends Owned {
         sqlquery+=getFirstValueNormalBook()+", '"+
                 this.m_typebook.toString()+"', '"+
                 this.m_publisher+"', '"+
-                this.m_year_edition+"', "+
-                this.m_purchasedate.toString()+", "+
+                this.m_year_edition+"', '"+
+                this.m_purchasedate.toString()+"', "+
                 this.m_rating+", '"+
-                this.m_fromWhere.toString()+ "', "+
-                this.m_readdate+",3 );";
+                this.m_fromWhere.toString()+ "', '"+
+                this.m_readdate+"',3 );";
         return sqlquery;
     }
 }

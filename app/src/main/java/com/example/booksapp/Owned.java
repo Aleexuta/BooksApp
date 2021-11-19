@@ -30,8 +30,8 @@ public class Owned extends Book{
         sqlquery+=getFirstValueNormalBook()+", '"+
                 this.m_typebook.toString()+"', '"+
                 this.m_publisher+"', '"+
-                this.m_year_edition+"', "+
-                this.m_purchasedate.toString()+", 3);";
+                this.m_year_edition+"', '"+
+                this.m_purchasedate.toString()+"', 3);";
         return sqlquery;
     }
 

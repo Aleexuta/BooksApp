@@ -30,8 +30,8 @@ public class Read extends Book{
                 DatabaseHelper._TypeOfBook+")";
         sqlquery+=getFirstValueNormalBook()+", "+
                 this.m_rating+", '"+
-                this.m_fromWhere.toString()+ "', "+
-                this.m_readdate+",1);";
+                this.m_fromWhere.toString()+ "', '"+
+                this.m_readdate+"',1);";
         return sqlquery;
 
     }
