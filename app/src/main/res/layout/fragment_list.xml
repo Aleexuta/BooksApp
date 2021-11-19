@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    tools:context=".FragmentList">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/openNewBookFragButton"
+                android:layout_width="20dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="AddBook"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/refreshbutton"
+                android:layout_width="34dp"
+                android:layout_height="72dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Refresh"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listlayout"
+            android:layout_width="match_parent"
+            android:layout_height="698dp"
+            android:background="#94C65656" />
+
+    </LinearLayout>
+
+</FrameLayout>
