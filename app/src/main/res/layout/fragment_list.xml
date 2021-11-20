@@ -5,36 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@color/backcolor"
     tools:context=".FragmentList">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A4E8A7"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="83dp"
-            android:orientation="horizontal">
+            android:layout_height="86dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
             <Button
                 android:id="@+id/openNewBookFragButton"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="20dp"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="6dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="AddBook" />
 
             <Button
                 android:id="@+id/refreshbutton"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="34dp"
-                android:layout_height="72dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="Refresh" />
         </LinearLayout>
@@ -43,7 +47,8 @@
             android:id="@+id/listlayout"
             android:layout_width="match_parent"
             android:layout_height="698dp"
-            android:background="#94C65656" />
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
     </LinearLayout>
 
