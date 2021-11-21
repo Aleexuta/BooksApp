@@ -43,7 +43,7 @@ public class MyListAdapter extends BaseAdapter {
 
         BookViewForList currentBook = bookList.get(position);
 
-        TextView title = rowview.findViewById(R.id.listTitle);
+        TextView title = rowview.findViewById(R.id.newBookTitle);
         title.setText(currentBook.getM_title());
 
         TextView autor = rowview.findViewById(R.id.listAuthor);

@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbManager=DBManager.getInstance(this);
+        dbManager=DBManager.getInstance();
         FragmentManager manager = getSupportFragmentManager();
         transaction=manager.beginTransaction();
         transaction.replace(R.id.fragmentLayout,FragmentList.newInstance(this)," ").commit();

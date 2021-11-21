@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.BooksApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/five_color</item>
-        <item name="colorPrimaryVariant">@color/four_color</item>
+        <item name="colorPrimary">@color/four_color</item>
+        <item name="colorPrimaryVariant">@color/three_color</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/five_color</item>
-        <item name="colorSecondaryVariant">@color/four_color</item>
+        <item name="colorSecondary">@color/one_color</item>
+        <item name="colorSecondaryVariant">@color/two_color</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

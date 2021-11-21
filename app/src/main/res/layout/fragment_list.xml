@@ -11,42 +11,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/refreshbutton"
             android:layout_width="match_parent"
-            android:layout_height="86dp"
-            android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_height="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="Refresh" />
 
-            <Button
-                android:id="@+id/openNewBookFragButton"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:text="AddBook" />
+        <Button
+            android:id="@+id/openNewBookFragButton"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="AddBook" />
 
-            <Button
-                android:id="@+id/refreshbutton"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:text="Refresh" />
-        </LinearLayout>
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:barrierDirection="top" />
 
         <ListView
             android:id="@+id/listlayout"
             android:layout_width="match_parent"
-            android:layout_height="698dp"
+            android:layout_height="476dp"
+            android:layout_marginBottom="2dp"
             android:divider="@null"
             android:dividerHeight="0dp" />
 

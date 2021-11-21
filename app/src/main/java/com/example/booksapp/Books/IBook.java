@@ -1,4 +1,4 @@
-package com.example.booksapp;
+package com.example.booksapp.Books;
 
 public interface IBook {
 

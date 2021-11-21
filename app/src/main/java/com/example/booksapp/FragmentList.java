@@ -51,9 +51,9 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         // Inflate the layout for this fragment
         View rootview= inflater.inflate(R.layout.fragment_list, container, false);
 
-        dbManager=DBManager.getInstance(main);
+        dbManager=DBManager.getInstance();
         assert dbManager != null;
-        if(dbManager.open()==null)
+        if(dbManager.open(main)==null)
             getExitTransition();
 
        // Cursor cursor=dbManager.fetch();

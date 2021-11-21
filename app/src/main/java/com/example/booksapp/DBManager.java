@@ -2,39 +2,31 @@ package com.example.booksapp;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.booksapp.Books.IBook;
 
 import java.util.ArrayList;
 
 public class DBManager {
     DatabaseHelper m_dbHelper;
-    private Context m_context;
     private SQLiteDatabase m_database;
-    private static DBManager instance=null;
+    static private DBManager instance=null;
 
-    static public DBManager getInstance(Context c)
-    {
-        if(instance==null)
-            instance=new DBManager(c);
-        return instance;
-    }
     static public DBManager getInstance()
     {
-        if(instance!=null)
-            return instance;
-        return null;
+        if(instance==null)
+            instance=new DBManager();
+        return instance;
     }
 
-    private DBManager(Context c)
+    private DBManager()
     {
-        m_context=c;
     }
-    private DBManager(){}
-    public DBManager open() throws SQLException
+    public DBManager open(Context context) throws SQLException
     {
-        m_dbHelper=new DatabaseHelper(m_context);
+        m_dbHelper=new DatabaseHelper(context);
         m_database=m_dbHelper.getWritableDatabase();
         return this;
     }
