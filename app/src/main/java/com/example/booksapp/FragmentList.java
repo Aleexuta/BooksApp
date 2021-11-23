@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.EditBook;
 import com.example.booksapp.Books.NewBook;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +22,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
     private MainActivity main;
     private ListView listview;
     private MyListAdapter myListAdapter;
-
+    ArrayList<BookViewForList> booklist;
     private DBManager dbManager;
 
 
@@ -62,17 +63,21 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
        // Cursor cursor=dbManager.fetch();
 
         listview=(ListView) rootview.findViewById(R.id.listlayout);
+        loadListToView();
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=   manager.beginTransaction();
-                transaction.add(R.id.fragmentLayout,new EditBook(viewId)).commit();
+                EditBook eb=new EditBook();
+                BookViewForList obj=(BookViewForList)booklist.get(position);
+                eb.setID(obj.getM_Id());
+                transaction.add(R.id.fragmentLayout,eb).commit();
             }
 
         });
 
-        loadListToView();
+
 
         FloatingActionButton addbookbutton=(FloatingActionButton) rootview.findViewById(R.id.openNewBookFragButton);
         addbookbutton.setOnClickListener(this);
@@ -86,7 +91,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
     private void loadListToView()
     {
-        ArrayList<BookViewForList> booklist= dbManager.loadAllData(); //iei lista din  baza de date cu o functie;
+        booklist= dbManager.loadAllData(); //iei lista din  baza de date cu o functie;
         myListAdapter=new MyListAdapter(getActivity(),booklist);
         listview.setAdapter(myListAdapter);
     }

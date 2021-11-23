@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.RequiresPermission;
+
 import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.BookType;
 import com.example.booksapp.Books.CoverType;
@@ -87,42 +89,90 @@ public class DBManager {
     @SuppressLint("SimpleDateFormat")
     public IBook getBook(long id)
     {
-        Cursor cursor=m_database.query(true,DatabaseHelper.BOOK_TABLE,
+        @SuppressLint("Recycle") Cursor cursor=m_database.query(true,DatabaseHelper.BOOK_TABLE,
                 DatabaseHelper._COLUMNS_NAME,DatabaseHelper._ID+"=?",new String[] {String.valueOf(id) },
                 null,null,null,null);
         IBook book=null;
+
         if (cursor.moveToFirst()){
             do{
+                String tit=cursor.getString(0);
+                String aut=cursor.getString(1);
+                BookType bt=BookType.valueOf(cursor.getString(2));
+                String obs=cursor.getString(3);
+                Language lg=Language.valueOf(cursor.getString(4));
+
                 boolean tr= cursor.getString(5).equals("1");
                 boolean tb= cursor.getString(6).equals("1");
                 boolean p= cursor.getString(7).equals("1");
                 boolean r= cursor.getString(8).equals("1");
                 boolean o= cursor.getString(9).equals("1");
 
-                Date readeddate= null;
-                try {
-                    readeddate = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(13));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                String rd=cursor.getString(18);
+                String pd=cursor.getString(13);
+
+                String cv=cursor.getString(10);//cover
+                String pub=cursor.getString(11);
+                String year= cursor.getString(12);
+
+                String tp=cursor.getString(14);
+                String ap=cursor.getString(15);
+                String rat=cursor.getString(16);
+
+                String rf=cursor.getString(17);
+
+                int tip=Integer.parseInt(cursor.getString(19));
+
+
+                Date readeddate= new Date(rd);
+                Date purchase= new Date(pd);
+
+
+                //in functie de tipul cartii creez cartea
+                switch (tip) {
+                    case 0: {
+                        book = Book.getSimpleBook(tit, aut, bt, obs, lg, tr, tb);
+                        break;
+                    }
+                    case 1: {
+                        book=Book.getProgressBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),Integer.parseInt(ap));
+                        break;
+                    }
+                    case 2:{
+                        book=Book.getProgressReadBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),
+                                Integer.parseInt(ap),Integer.parseInt(rat), ReadFrom.valueOf(rf),readeddate);
+                        break;
+                    }
+                    case 3:{
+                        book=Book.getReadBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),
+                                Integer.parseInt(rat),ReadFrom.valueOf(rf),readeddate);
+                        break;
+                    }
+                    case 4: {
+                        book=Book.getOwnedBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),pub,year,purchase);
+                        break;
+                    }
+                    case 5: {
+                        book=Book.getOwnedProgressBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
+                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(ap));
+                        break;
+                    }
+                    case 6:{
+                        book=Book.getOwnedProgressReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
+                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(ap),
+                                Integer.parseInt(rat),ReadFrom.valueOf(rf),readeddate);
+                        break;
+                    }
+                    case 7:{
+                        book=Book.getOwnedReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
+                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(rat),
+                                ReadFrom.valueOf(rf),readeddate);
+                        break;
+                    }
+                    default:
+                        break;
+
                 }
-                Date purchase= null;
-                try {
-                    purchase = new SimpleDateFormat("yyyy-MM-dd").parse(cursor.getString(18));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                book=new Book(cursor.getString(0),cursor.getString(1),
-                        BookType.valueOf(cursor.getString(2)),cursor.getString(3),
-                        Language.valueOf(cursor.getString(4)),tr,tb,p,r,o,
-                        CoverType.valueOf(cursor.getString(10)),cursor.getString(11),
-                        cursor.getString(12),readeddate
-                        ,Integer.parseInt(cursor.getString(14)),
-                        Integer.parseInt(cursor.getString(15)),
-                        Integer.parseInt(cursor.getString(16)),
-                        ReadFrom.valueOf(cursor.getString(17)),
-                        purchase,
-                        Integer.parseInt(cursor.getString(19)));
-                // do what ever you want here
             }while(cursor.moveToNext());
         }
         return book;
@@ -151,10 +201,6 @@ public class DBManager {
             BookViewForList nou=new BookViewForList(id,title,author);
             list.add(nou);
         }
-        list.add(new BookViewForList(1,"titlu1", "autor1"));
-        list.add(new BookViewForList(2,"titlu1", "autor1"));
-        list.add(new BookViewForList(3,"titlu1", "autor1"));
-
         return list;
     }
 

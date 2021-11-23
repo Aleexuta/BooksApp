@@ -232,7 +232,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         boolean owned = m_owned.isChecked();
         boolean read = m_read.isChecked();
         boolean progress = m_progress.isChecked();
-        Date readeddate = null;
+        Date readeddate=null;
         if (read) {
 
             try {
@@ -243,13 +243,14 @@ public class NewBook extends Fragment implements View.OnClickListener {
         }
         if (owned) {
             CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
-            Date purchdate = null;
+            Date purchdate =null;
             try {
                 purchdate = new SimpleDateFormat("dd-MM-yyyy").parse(m_boughtdate.getText().toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
+            String pub=m_publicatie.getText().toString();
+            String year=m_year.getText().toString();
 
             if (progress && read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
@@ -260,8 +261,8 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 assert purchdate != null;
                 assert readeddate != null;
                 newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
-                        , ct, m_publicatie.toString(),
-                        m_year.toString(), purchdate, tp, tp, rat, rf, readeddate);
+                        , ct, pub,
+                       year, purchdate, tp, tp, rat, rf, readeddate);
             } else if (progress) {
 
 
@@ -269,7 +270,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
                 newbook = Book.getOwnedProgressBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        ct, m_publicatie.toString(), m_year.toString(), purchdate, tp, ap);
+                        ct,pub, year, purchdate, tp, ap);
 
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
@@ -278,11 +279,11 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        ct, m_publicatie.toString(), m_year.toString(),
-                        purchdate, tp, tp, rat, rf, readeddate);
+                        ct, pub, year,
+                        purchdate, tp, rat, rf, readeddate);
             } else {
                 newbook = Book.getOwnedBook(titlu, autor, gen, obs, lang, toread, tobuy, ct,
-                        m_publicatie.toString(), m_year.toString(), purchdate);
+                        pub, year, purchdate);
             }
 
         } else//nu e cumparata

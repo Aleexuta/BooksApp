@@ -173,7 +173,7 @@ public class Book implements IBook {
                                             int NrTotalPages,int nrActualPage, int rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,CoverType.EMPTY,"null","null",
+                true,true,false,CoverType.EMPTY,"null","null",
                 null,NrTotalPages,nrActualPage,rating,readFrom,readDate,2);
     }
     static public IBook getReadBook(String title, String author, BookType genre, String obs, Language lang,
@@ -181,7 +181,7 @@ public class Book implements IBook {
                                     int NrTotalPages,int rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,CoverType.EMPTY,"null","null",
+                false,true,false,CoverType.EMPTY,"null","null",
                 null,NrTotalPages,0,rating,readFrom,readDate,3);
     }
 
@@ -190,7 +190,7 @@ public class Book implements IBook {
                                      CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,coverType,publisher,yearOfPublication,
+                false,false,true,coverType,publisher,yearOfPublication,
                 dateOfPurchase,0,0,0,ReadFrom.EMPTY,null,4);
     }
 
@@ -200,7 +200,7 @@ public class Book implements IBook {
                                              int nrPagesTotal, int nrActualPage)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,coverType,publisher,yearOfPublication,
+                true,false,true,coverType,publisher,yearOfPublication,
                 dateOfPurchase,nrPagesTotal,nrActualPage,0,ReadFrom.EMPTY,null,5);
     }
 
@@ -210,18 +210,18 @@ public class Book implements IBook {
                                                  int NrTotalPages, int nrActualPage,int rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,coverType,publisher,yearOfPublication,
+                true,true,true,coverType,publisher,yearOfPublication,
                 dateOfPurchase,NrTotalPages,nrActualPage,rating,readFrom,readDate,6);
     }
 
     static public IBook getOwnedReadBook(String title, String author, BookType genre, String obs, Language lang,
                                          boolean toread, boolean tobuy,
                                          CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                                         int NrTotalPages, int nrActualPage,int rating, ReadFrom readFrom, Date readDate)
+                                         int NrTotalPages,int rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
-                false,false,false,coverType,publisher,yearOfPublication,
-                dateOfPurchase,NrTotalPages,nrActualPage,rating,readFrom,readDate,7);
+                false,true,true,coverType,publisher,yearOfPublication,
+                dateOfPurchase,NrTotalPages,NrTotalPages,rating,readFrom,readDate,7);
     }
 
     public void setReadStatus(boolean status){
@@ -232,7 +232,7 @@ public class Book implements IBook {
     }
     protected String getNameBook()
     {
-        String sqlquery=" ("+
+        String sqlquery=" ("+ DatabaseHelper._Type+", "+
             DatabaseHelper._Title+", "+ DatabaseHelper._Author+", "+
             DatabaseHelper._Toread+", "+DatabaseHelper._Tobuy+", "+
             DatabaseHelper._Read+", "+DatabaseHelper._Owned+", "+
@@ -291,7 +291,7 @@ public class Book implements IBook {
         int r=m_Read ? 1 : 0;
         int o=m_Owned ? 1 : 0;
         int p=m_inProgress ? 1 : 0;
-        String sqlquery="('"+m_title+"', '"+m_author+"',"+
+        String sqlquery="("+m_typeBook +", '"+m_title+"', '"+m_author+"',"+
                 +tr+", "+tb+", "+r+", "+o+", "+p+", '"+
                 m_genre.toString()+"', '"+m_language.toString()+"', '"+m_obs+"'";
 
@@ -301,8 +301,8 @@ public class Book implements IBook {
             sqlquery+=", "+m_totalPages+", "+m_actualPage+", "+
                     m_rating+", '"+m_readFrom.toString()+"', '"+m_readDate+"'";
         if(m_typeBook==3)
-            sqlquery+=", "+m_totalPages+", "+
-                    m_rating+", '"+m_readFrom.toString()+"', '"+m_readDate+"'";
+            sqlquery+=", "+m_rating+", '"+m_readFrom.toString()+"', '"
+                    +m_readDate+"',"+ m_totalPages+" ";
         if(m_typeBook==4)
             sqlquery+=", '"+m_coverType.toString()+"', '"+m_publisher+"', '"+m_yearPublication+"', '"+
                     m_purchaseDate+"'";

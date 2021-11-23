@@ -35,9 +35,13 @@ public class EditBook extends Fragment implements  View.OnClickListener{
     long m_id;
     public EditBook(long id)
     {
+        super();
         m_id=id;
     }
-
+    public void setID(long id)
+    {
+        m_id=id;
+    }
     //salvez idurile de la acestea pt a le apela mai tarziu;
     EditText m_autor;
     EditText m_titlu;
@@ -71,7 +75,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_new_book, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_book, container, false);
 
         Spinner spinner = v.findViewById(R.id.spinnergenreEdit);
         List<BookType> genre = new ArrayList<BookType>(Arrays.asList(BookType.values()));
@@ -160,12 +164,14 @@ public class EditBook extends Fragment implements  View.OnClickListener{
     private void LoadBook()
     {
         DBManager db= DBManager.getInstance();
-        IBook book=db.getBook(m_id);
+       IBook book=db.getBook(m_id);
 
+        if(book==null)
+            return;
         m_titlu.setText(book.getM_title());
         m_autor.setText(book.getM_author());
-        int pos=BookType.valueOf(book.getM_coverType().toString()).ordinal();
-        m_coverbooktypespinner.setSelection(pos);
+        int pos=BookType.valueOf(book.getM_genre().toString()).ordinal();
+        m_genre.setSelection(pos);
         pos=Language.valueOf(book.getM_language().toString()).ordinal();
         m_language.setSelection(pos);
         m_obs.setText(book.getM_obs());
@@ -182,7 +188,8 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             pos = ReadFrom.valueOf(book.getM_readFrom().toString()).ordinal();
             m_readfromspinner.setSelection(pos);
             m_readdate.setText(book.getM_readDate().toString());
-            m_acutalpage.setText(book.getM_actualPage());
+            m_acutalpage.setText(String.valueOf(book.getM_actualPage()));
+
 
             m_ratbar.setVisibility(View.VISIBLE);
             m_readfromspinner.setVisibility(View.VISIBLE);
@@ -191,8 +198,8 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         }
         if(m_progress.isChecked())
         {
-            m_acutalpage.setText(book.getM_actualPage());
-            m_totalpages.setText(book.getM_totalPages());
+            m_acutalpage.setText(String.valueOf(book.getM_actualPage()));
+            m_totalpages.setText(String.valueOf(book.getM_totalPages()));
 
             m_acutalpage.setVisibility(View.VISIBLE);
             m_totalpages.setVisibility(View.VISIBLE);
@@ -259,18 +266,19 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             }
             return;
         }
+        /*
         int addid=m_add.getId();
         if (idv == addid) {
             getBook();
 
         }
 
-
+*/
     }
 
 
     public boolean onBackPressed() { return false; }
-
+/*
     @SuppressLint("SimpleDateFormat")
     private void getBook()
     {
@@ -395,5 +403,5 @@ public class EditBook extends Fragment implements  View.OnClickListener{
 
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
-
+*/
 }

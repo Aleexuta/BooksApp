@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             _Obs,_Language,
             _Toread,_Tobuy,_Progress,_Read,_Owned,
             _Cover,_Publisher,_Year,_PurchaseDate,
-            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate};
+            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate,_Type};
 
     private static final String CREATE_TABLE =" create table "+BOOK_TABLE+"("+
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
