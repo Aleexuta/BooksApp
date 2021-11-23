@@ -35,7 +35,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/newBookauthor"
+                    android:id="@+id/editauthor"
                     android:layout_width="299dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="12dp"
@@ -47,12 +47,12 @@
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/newBookTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
                 <EditText
-                    android:id="@+id/publisher"
+                    android:id="@+id/publisherEdit"
                     android:layout_width="207dp"
-                    android:layout_height="46dp"
+                    android:layout_height="48dp"
                     android:layout_marginTop="16dp"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -61,10 +61,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.503"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/readedfromspinner" />
+                    app:layout_constraintTop_toBottomOf="@+id/readedfromspinnerEdit" />
 
                 <EditText
-                    android:id="@+id/year"
+                    android:id="@+id/yearEdit"
                     android:layout_width="97dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
@@ -74,10 +74,10 @@
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/publisher" />
+                    app:layout_constraintTop_toBottomOf="@+id/publisherEdit" />
 
                 <EditText
-                    android:id="@+id/newBookTitle"
+                    android:id="@+id/editTitle"
                     android:layout_width="303dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="25dp"
@@ -92,18 +92,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
-                    android:id="@+id/spinnergenre"
+                    android:id="@+id/spinnergenreEdit"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.46"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/newBookauthor"
+                    app:layout_constraintTop_toBottomOf="@+id/editauthor"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <androidx.gridlayout.widget.GridLayout
-                    android:id="@+id/gridLayout"
+                    android:id="@+id/gridLayoutEdit"
                     android:layout_width="299dp"
                     android:layout_height="144dp"
                     android:layout_marginStart="16dp"
@@ -112,10 +112,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.25"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/languagespinner">
+                    app:layout_constraintTop_toBottomOf="@+id/languagespinnerEdit">
 
                     <CheckBox
-                        android:id="@+id/readcheck"
+                        android:id="@+id/readcheckEdit"
                         android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:checked="false"
@@ -124,7 +124,7 @@
                         app:layout_row="1" />
 
                     <CheckBox
-                        android:id="@+id/progresscheck"
+                        android:id="@+id/progresscheckEdit"
                         android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:checked="false"
@@ -133,7 +133,7 @@
                         app:layout_row="2" />
 
                     <CheckBox
-                        android:id="@+id/toreadcheck"
+                        android:id="@+id/toreadcheckEdit"
                         android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:text="De citit"
@@ -141,7 +141,7 @@
                         app:layout_row="0" />
 
                     <CheckBox
-                        android:id="@+id/owncheck"
+                        android:id="@+id/owncheckEdit"
                         android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:text="In biblioteca"
@@ -149,7 +149,7 @@
                         app:layout_row="1" />
 
                     <CheckBox
-                        android:id="@+id/tobuycheck"
+                        android:id="@+id/tobuycheckEdit"
                         android:layout_width="149dp"
                         android:layout_height="wrap_content"
                         android:text="De cumparat"
@@ -160,7 +160,7 @@
                 </androidx.gridlayout.widget.GridLayout>
 
                 <EditText
-                    android:id="@+id/Observatii"
+                    android:id="@+id/ObservatiiEdit"
                     android:layout_width="281dp"
                     android:layout_height="54dp"
                     android:layout_marginStart="12dp"
@@ -174,10 +174,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.584"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/boughtdate" />
+                    app:layout_constraintTop_toBottomOf="@+id/boughtdateEdit" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar"
+                    android:id="@+id/ratingBarEdit"
                     style="?android:attr/ratingBarStyleIndicator"
                     android:layout_width="175dp"
                     android:layout_height="47dp"
@@ -186,11 +186,11 @@
                     android:progressTint="@color/two_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/actualpages"
+                    app:layout_constraintTop_toBottomOf="@+id/actualpagesEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <EditText
-                    android:id="@+id/readeddate"
+                    android:id="@+id/readeddateEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -200,48 +200,47 @@
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBarEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <EditText
-                    android:id="@+id/boughtdate"
+                    android:id="@+id/boughtdateEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="Data cumparare(dd-mm-yyyy)"
                     android:inputType="date"
-                    android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/year"
+                    app:layout_constraintTop_toBottomOf="@+id/yearEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
-                    android:id="@+id/readedfromspinner"
+                    android:id="@+id/readedfromspinnerEdit"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.505"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/coverbooktypespinner"
+                    app:layout_constraintTop_toBottomOf="@+id/coverbooktypespinnerEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
-                    android:id="@+id/coverbooktypespinner"
+                    android:id="@+id/coverbooktypespinnerEdit"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.505"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/readeddate"
+                    app:layout_constraintTop_toBottomOf="@+id/readeddateEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/linearLayoutEdit"
                     android:layout_width="305dp"
                     android:layout_height="42dp"
                     android:layout_marginTop="32dp"
@@ -251,20 +250,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.52"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Observatii">
+                    app:layout_constraintTop_toBottomOf="@+id/ObservatiiEdit">
 
                     <Button
-                        android:id="@+id/okbutton"
+                        android:id="@+id/okbuttonEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="ADD"
+                        android:text="EDIT"
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <Button
-                        android:id="@+id/cancelbutton"
+                        android:id="@+id/deletebutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:onClick="onClick"
+                        android:text="DELETE" />
+
+                    <Button
+                        android:id="@+id/cancelbuttonEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -272,18 +280,18 @@
                 </LinearLayout>
 
                 <Spinner
-                    android:id="@+id/languagespinner"
+                    android:id="@+id/languagespinnerEdit"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.46"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnergenre"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnergenreEdit"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <EditText
-                    android:id="@+id/actualpages"
+                    android:id="@+id/actualpagesEdit"
                     android:layout_width="133dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
@@ -294,12 +302,12 @@
                     app:layout_column="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tottalpages"
+                    app:layout_constraintTop_toBottomOf="@+id/tottalpagesEdit"
                     app:layout_row="2"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <EditText
-                    android:id="@+id/tottalpages"
+                    android:id="@+id/tottalpagesEdit"
                     android:layout_width="132dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
@@ -309,7 +317,8 @@
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/gridLayoutEdit"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

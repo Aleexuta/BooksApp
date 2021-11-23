@@ -1,6 +1,5 @@
 package com.example.booksapp;
 
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,8 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.booksapp.Books.EditBook;
+import com.example.booksapp.Books.NewBook;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 public class FragmentList extends Fragment implements  View.OnClickListener{
@@ -22,8 +25,8 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
     private DBManager dbManager;
 
 
-    private Button m_addbutton;
-    private Button m_refreshbutton;
+    private FloatingActionButton m_addbutton;
+    private FloatingActionButton m_refreshbutton;
     public FragmentList() {
         // Required empty public constructor
     }
@@ -60,14 +63,22 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
         listview=(ListView) rootview.findViewById(R.id.listlayout);
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=   manager.beginTransaction();
+                transaction.add(R.id.fragmentLayout,new EditBook(viewId)).commit();
+            }
+
+        });
 
         loadListToView();
 
-        Button addbookbutton=(Button) rootview.findViewById(R.id.openNewBookFragButton);
+        FloatingActionButton addbookbutton=(FloatingActionButton) rootview.findViewById(R.id.openNewBookFragButton);
         addbookbutton.setOnClickListener(this);
         m_addbutton=addbookbutton;
 
-        m_refreshbutton=(Button) rootview.findViewById(R.id.refreshbutton);
+        m_refreshbutton=(FloatingActionButton) rootview.findViewById(R.id.refreshbutton);
         m_refreshbutton.setOnClickListener(this);
 
         return rootview;

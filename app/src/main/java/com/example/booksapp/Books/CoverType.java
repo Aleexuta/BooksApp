@@ -1,3 +1,3 @@
 package com.example.booksapp.Books;
 
-public enum CoverType {Hardcover, Paperback, Ebook, PDF}
+public enum CoverType {Hardcover, Paperback, Ebook, PDF,EMPTY}
