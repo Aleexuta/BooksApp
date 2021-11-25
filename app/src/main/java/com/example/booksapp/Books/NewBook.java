@@ -152,8 +152,8 @@ public class NewBook extends Fragment implements View.OnClickListener {
         Button addbut = v.findViewById(R.id.okbutton);
         m_add = addbut;
         addbut.setOnClickListener(this);
-
-
+        m_close=v.findViewById(R.id.cancelbutton);
+        m_close.setOnClickListener(this);
         return v;
     }
 
@@ -205,9 +205,14 @@ public class NewBook extends Fragment implements View.OnClickListener {
         int addid = m_add.getId();
         if (idv == addid) {
             getBook();
-
+            return;
         }
-
+        int clid=m_close.getId();
+        if(idv==clid)
+        {
+            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            return;
+        }
 
     }
 

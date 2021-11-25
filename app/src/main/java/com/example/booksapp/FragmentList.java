@@ -72,7 +72,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
                 EditBook eb=new EditBook();
                 BookViewForList obj=(BookViewForList)booklist.get(position);
                 eb.setID(obj.getM_Id());
-                transaction.add(R.id.fragmentLayout,eb).commit();
+                transaction.add(R.id.fragmentLayout,eb).addToBackStack("1").commit();
             }
 
         });

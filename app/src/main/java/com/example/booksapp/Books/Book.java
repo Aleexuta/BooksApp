@@ -252,7 +252,7 @@ public class Book implements IBook {
             sqlquery+=DatabaseHelper._TotalPages+", "+
                     DatabaseHelper._ActualPage;
         if(m_typeBook==2)
-            sqlquery+=sqlquery+=DatabaseHelper._TotalPages+", "+
+            sqlquery+=DatabaseHelper._TotalPages+", "+
                     DatabaseHelper._ActualPage+", "+
                     DatabaseHelper._Rating+", "+DatabaseHelper._ReadFrom+", "+
                     DatabaseHelper._ReadDate;

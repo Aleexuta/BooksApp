@@ -124,8 +124,12 @@ public class DBManager {
                 int tip=Integer.parseInt(cursor.getString(19));
 
 
-                Date readeddate= new Date(rd);
-                Date purchase= new Date(pd);
+                Date readeddate=null;
+                if(r)
+                    readeddate=new Date(rd);
+                Date purchase=null;
+                if(o)
+                    purchase= new Date(pd);
 
 
                 //in functie de tipul cartii creez cartea

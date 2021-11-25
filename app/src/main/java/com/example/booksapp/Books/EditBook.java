@@ -58,7 +58,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
     CheckBox m_read;
     CheckBox m_owned;
     CheckBox m_progress;
-    Button m_add;
+    Button m_edit;
     Button m_close;
     Button m_delete;
     EditText m_readdate;
@@ -138,12 +138,13 @@ public class EditBook extends Fragment implements  View.OnClickListener{
 
 
         Button addbut=v.findViewById(R.id.okbuttonEdit);
-        m_add=addbut;
+        m_edit=addbut;
         addbut.setOnClickListener(this);
 
         m_close=v.findViewById(R.id.cancelbuttonEdit);
+        m_close.setOnClickListener(this);
         m_delete=v.findViewById(R.id.deletebutton);
-
+        m_delete.setOnClickListener(this);
 
         m_ratbar.setVisibility(View.GONE);
         m_readfromspinner.setVisibility(View.GONE);
@@ -266,22 +267,31 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             }
             return;
         }
-        /*
-        int addid=m_add.getId();
-        if (idv == addid) {
-            getBook();
 
+        int edit=m_edit.getId();
+        if(idv==edit)
+        {
+            updateBook();
+            return;
+        }
+        int cllid=m_close.getId();
+        if(idv==cllid)
+        {
+            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            return;
+        }
+        if(idv==m_delete.getId())
+        {
+            //delete
+            return;
         }
 
-*/
     }
 
-
     public boolean onBackPressed() { return false; }
-/*
+
     @SuppressLint("SimpleDateFormat")
-    private void getBook()
-    {
+    private void updateBook() {
         IBook newbook;
         //in functie de ce am biffat creez un anumit tip de carte;
 
@@ -293,11 +303,11 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         boolean toread = m_toread.isChecked();
         boolean tobuy = m_tobuy.isChecked();
 
-        boolean owned=m_owned.isChecked();
-        boolean read=m_read.isChecked();
-        boolean progress=m_progress.isChecked();
-        Date readeddate = null;
-        if(read) {
+        boolean owned = m_owned.isChecked();
+        boolean read = m_read.isChecked();
+        boolean progress = m_progress.isChecked();
+        Date readeddate=null;
+        if (read) {
 
             try {
                 readeddate = new SimpleDateFormat("dd-MM-yyyy").parse(m_readdate.getText().toString());
@@ -305,103 +315,83 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 e.printStackTrace();
             }
         }
-        if(owned)
-        {
-            CoverType ct=(CoverType) m_coverbooktypespinner.getSelectedItem();
-            Date purchdate= null;
+        if (owned) {
+            CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
+            Date purchdate =null;
             try {
                 purchdate = new SimpleDateFormat("dd-MM-yyyy").parse(m_boughtdate.getText().toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            String pub=m_publicatie.getText().toString();
+            String year=m_year.getText().toString();
 
+            if (progress && read) {
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-            if(progress && read)
-            {
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
-
-                int rat=m_ratbar.getNumStars();
-                ReadFrom rf=(ReadFrom) m_readfromspinner.getSelectedItem();
+                int rat = m_ratbar.getNumStars();
+                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 assert purchdate != null;
                 assert readeddate != null;
-                newbook=Book.getOwnedProgressReadBook(titlu,autor,gen,obs,lang,toread,tobuy
-                        ,ct,m_publicatie.toString(),
-                        m_year.toString(),purchdate,tp,tp,rat,rf,readeddate);
-            }
-            else
-            if(progress)
-            {
+                newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
+                        , ct, pub,
+                        year, purchdate, tp, tp, rat, rf, readeddate);
+            } else if (progress) {
 
 
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
-                int ap=Integer.parseInt(m_acutalpage.getText().toString());
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
+                int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                newbook=Book.getOwnedProgressBook(titlu,autor,gen,obs,lang,toread,tobuy,
-                        ct,m_publicatie.toString(),m_year.toString(),purchdate,tp,ap);
+                newbook = Book.getOwnedProgressBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                        ct,pub, year, purchdate, tp, ap);
 
-            }
-            else
-            if(read)
-            {
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
+            } else if (read) {
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat=m_ratbar.getNumStars();
-                ReadFrom rf=(ReadFrom) m_readfromspinner.getSelectedItem();
+                int rat = m_ratbar.getNumStars();
+                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
-                newbook=Book.getOwnedReadBook(titlu,autor,gen,obs,lang,toread,tobuy,
-                        ct,m_publicatie.toString(),m_year.toString(),
-                        purchdate,tp,tp,rat,rf,readeddate);
-            }
-            else
-            {
-                newbook=Book.getOwnedBook(titlu,autor,gen,obs,lang,toread,tobuy,ct,
-                        m_publicatie.toString(),m_year.toString(),purchdate);
+                newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                        ct, pub, year,
+                        purchdate, tp, rat, rf, readeddate);
+            } else {
+                newbook = Book.getOwnedBook(titlu, autor, gen, obs, lang, toread, tobuy, ct,
+                        pub, year, purchdate);
             }
 
-        }
-        else//nu e cumparata
+        } else//nu e cumparata
         {
-            if(progress && read)
-            {
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
-                int ap=Integer.parseInt(m_acutalpage.getText().toString());
+            if (progress && read) {
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
+                int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                int rat=m_ratbar.getNumStars();
-                ReadFrom rf=(ReadFrom) m_readfromspinner.getSelectedItem();
+                int rat = m_ratbar.getNumStars();
+                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
-                newbook=Book.getProgressReadBook(titlu,autor,gen,obs,lang,toread,tobuy,
-                        tp,ap,rat,rf,readeddate);
-            }
-            else
-            if(progress)
-            {
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
-                int ap=Integer.parseInt(m_acutalpage.getText().toString());
+                newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                        tp, ap, rat, rf, readeddate);
+            } else if (progress) {
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
+                int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                newbook=Book.getProgressBook(titlu,autor,gen,obs,lang,toread,tobuy,tp,ap);
-            }
-            else
-            if(read)
-            {
-                int tp=Integer.parseInt(m_totalpages.getText().toString());
+                newbook = Book.getProgressBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, ap);
+            } else if (read) {
+                int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat=m_ratbar.getNumStars();
-                ReadFrom rf=(ReadFrom) m_readfromspinner.getSelectedItem();
+                int rat = m_ratbar.getNumStars();
+                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
-                newbook=Book.getReadBook(titlu,autor,gen,obs,lang,toread,tobuy,tp,rat,rf,readeddate);
-            }
-            else
-            {
-                newbook=Book.getSimpleBook(titlu,autor,gen,obs,lang,toread,tobuy);
+                newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, readeddate);
+            } else {
+                newbook = Book.getSimpleBook(titlu, autor, gen, obs, lang, toread, tobuy);
             }
         }
         //trimitem inapoi noua carte in baza de date
-        DBManager db= DBManager.getInstance();
-        if(db!=null)
+        DBManager db = DBManager.getInstance();
+        if (db != null)
             db.update(m_id,newbook);
 
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
-*/
 }
