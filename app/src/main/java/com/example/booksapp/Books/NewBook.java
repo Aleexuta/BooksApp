@@ -1,6 +1,7 @@
 package com.example.booksapp.Books;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.booksapp.DBManager;
+import com.example.booksapp.FragmentList;
 import com.example.booksapp.R;
 
 import java.text.ParseException;
@@ -22,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NewBook extends Fragment implements View.OnClickListener {
     public NewBook() {
@@ -157,6 +161,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         int readid = m_read.getId();
@@ -221,6 +226,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
     private void getBook() {
         IBook newbook;
@@ -241,7 +247,9 @@ public class NewBook extends Fragment implements View.OnClickListener {
         if (read) {
 
             try {
-                readeddate = new SimpleDateFormat("dd-MM-yyyy").parse(m_readdate.getText().toString());
+                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                readeddate = formatter.parse(m_readdate.getText().toString());
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -250,7 +258,9 @@ public class NewBook extends Fragment implements View.OnClickListener {
             CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
             Date purchdate =null;
             try {
-                purchdate = new SimpleDateFormat("dd-MM-yyyy").parse(m_boughtdate.getText().toString());
+                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                purchdate = formatter.parse(m_boughtdate.getText().toString());
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -260,7 +270,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
             if (progress && read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 assert purchdate != null;
@@ -280,7 +290,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
@@ -297,7 +307,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
                 int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
@@ -310,7 +320,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, readeddate);

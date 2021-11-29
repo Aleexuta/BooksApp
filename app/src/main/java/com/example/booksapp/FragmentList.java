@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.EditBook;
 import com.example.booksapp.Books.NewBook;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +26,8 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
 
     private FloatingActionButton m_addbutton;
-    private FloatingActionButton m_refreshbutton;
+    private FloatingActionButton m_sortbutton;
+    private FloatingActionButton m_menubutton;
     public FragmentList() {
         // Required empty public constructor
     }
@@ -65,31 +65,22 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         listview=(ListView) rootview.findViewById(R.id.listlayout);
         loadListToView();
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
-                FragmentManager manager=getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction=   manager.beginTransaction();
-                EditBook eb=new EditBook();
-                BookViewForList obj=(BookViewForList)booklist.get(position);
-                eb.setID(obj.getM_Id());
-                transaction.add(R.id.fragmentLayout,eb).addToBackStack("1").commit();
-            }
-
-        });
 
 
-
-        FloatingActionButton addbookbutton=(FloatingActionButton) rootview.findViewById(R.id.openNewBookFragButton);
+        FloatingActionButton addbookbutton=(FloatingActionButton) rootview.findViewById(R.id.newbook);
         addbookbutton.setOnClickListener(this);
         m_addbutton=addbookbutton;
 
-        m_refreshbutton=(FloatingActionButton) rootview.findViewById(R.id.refreshbutton);
-        m_refreshbutton.setOnClickListener(this);
 
+        m_menubutton=rootview.findViewById(R.id.menu);
+        m_menubutton.setOnClickListener(this);
+
+        m_sortbutton=rootview.findViewById(R.id.sortFiltre);
+        m_sortbutton.setOnClickListener(this);
         return rootview;
     }
 
-    private void loadListToView()
+    public void loadListToView()
     {
         booklist= dbManager.loadAllData(); //iei lista din  baza de date cu o functie;
         myListAdapter=new MyListAdapter(getActivity(),booklist);
@@ -104,11 +95,18 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
             FragmentManager manager=getActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
             transaction.add(R.id.fragmentLayout, new NewBook()).addToBackStack("").commit();
-
         }
-        if(view.getId()==m_refreshbutton.getId())
+        if(view.getId()==m_menubutton.getId())
         {
-            loadListToView();
+            FragmentManager manager=getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, new MenuFragment()).addToBackStack("MENU").commit();
+        }
+        if(view.getId()==m_sortbutton.getId())
+        {
+            FragmentManager manager=getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, new SortFilterFragment()).addToBackStack("SORT").commit();
         }
     }
 

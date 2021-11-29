@@ -1,8 +1,10 @@
 package com.example.booksapp.Books;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class EditBook extends Fragment implements  View.OnClickListener{
@@ -71,6 +74,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -162,6 +166,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         return v;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void LoadBook()
     {
         DBManager db= DBManager.getInstance();
@@ -182,20 +187,22 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         m_read.setChecked(book.isM_Read());
         m_owned.setChecked(book.isM_Owned());
         m_progress.setChecked(book.isM_inProgress());
+        android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
         if(m_read.isChecked())
         {
             m_ratbar.setRating(book.getM_rating());
             pos = ReadFrom.valueOf(book.getM_readFrom().toString()).ordinal();
             m_readfromspinner.setSelection(pos);
-            m_readdate.setText(book.getM_readDate().toString());
-            m_acutalpage.setText(String.valueOf(book.getM_actualPage()));
+            String date=formatter.format(new Date(book.getM_readDate().toString()));
+            m_readdate.setText(date);
+            m_totalpages.setText(String.valueOf(book.getM_totalPages()));
 
 
             m_ratbar.setVisibility(View.VISIBLE);
             m_readfromspinner.setVisibility(View.VISIBLE);
             m_readdate.setVisibility(View.VISIBLE);
-            m_acutalpage.setVisibility(View.VISIBLE);
+            m_totalpages.setVisibility(View.VISIBLE);
         }
         if(m_progress.isChecked())
         {
@@ -210,7 +217,8 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             m_coverbooktypespinner.setSelection(pos);
             m_publicatie.setText(book.getM_publisher());
             m_year.setText(book.getM_yearPublication());
-            m_boughtdate.setText(book.getM_purchaseDate().toString());
+            String date=formatter.format(new Date(book.getM_purchaseDate().toString()));
+            m_boughtdate.setText(date);
 
             m_coverbooktypespinner.setVisibility(View.VISIBLE);
             m_publicatie.setVisibility(View.VISIBLE);
@@ -218,6 +226,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             m_boughtdate.setVisibility(View.VISIBLE);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         int readid = m_read.getId();
@@ -283,6 +292,10 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         if(idv==m_delete.getId())
         {
             //delete
+            DBManager db = DBManager.getInstance();
+            if (db != null)
+                db.delete(m_id);
+            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
             return;
         }
 
@@ -290,6 +303,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
 
     public boolean onBackPressed() { return false; }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
     private void updateBook() {
         IBook newbook;
@@ -310,7 +324,8 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         if (read) {
 
             try {
-                readeddate = new SimpleDateFormat("dd-MM-yyyy").parse(m_readdate.getText().toString());
+                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                readeddate = formatter.parse(m_readdate.getText().toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -319,7 +334,9 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
             Date purchdate =null;
             try {
-                purchdate = new SimpleDateFormat("dd-MM-yyyy").parse(m_boughtdate.getText().toString());
+                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                purchdate = formatter.parse(m_boughtdate.getText().toString());
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -329,14 +346,14 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             if (progress && read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 assert purchdate != null;
                 assert readeddate != null;
                 newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
                         , ct, pub,
-                        year, purchdate, tp, tp, rat, rf, readeddate);
+                        year, purchdate, tp,tp, rat, rf, readeddate);
             } else if (progress) {
 
 
@@ -349,7 +366,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
@@ -366,7 +383,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
                 int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
@@ -379,7 +396,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
 
-                int rat = m_ratbar.getNumStars();
+                float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, readeddate);

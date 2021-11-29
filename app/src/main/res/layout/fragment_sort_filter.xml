@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SortFilterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="60dp"
+        android:background="@color/two_color">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/exitsort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/three_color"
+            android:clickable="true"
+            android:src="@android:drawable/ic_delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:id="@+id/categorylist"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="188dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/toreadchip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="De citit" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tobuychip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="De cumparat" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/boughtchip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detinute" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/readchip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Citite" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/progresschip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In progres" />
+        </com.google.android.material.chip.ChipGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -53,7 +53,7 @@ public class Book implements IBook {
         return m_Read;
     }
 
-    public int getM_rating() {
+    public float getM_rating() {
         return m_rating;
     }
 
@@ -98,7 +98,7 @@ public class Book implements IBook {
     protected int m_actualPage=0;
 
     protected boolean m_Read=false;
-    protected int m_rating=0;
+    protected float m_rating=0;
     protected ReadFrom m_readFrom=ReadFrom.EMPTY;
     protected Date m_readDate =null;
 
@@ -131,7 +131,7 @@ public class Book implements IBook {
     public Book(String title, String author, BookType genre, String obs, Language lang,
                 boolean toread, boolean tobuy, boolean inprogress, boolean read, boolean owned,
                 CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                int NrTotalPages, int nrActualPage,int rating, ReadFrom readFrom, Date readDate,
+                int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, Date readDate,
                 int tip)
     {
         setSimpleBook(tobuy,toread,title,author,genre,obs,lang);
@@ -170,7 +170,7 @@ public class Book implements IBook {
 
     static public IBook getProgressReadBook(String title, String author, BookType genre, String obs, Language lang,
                                             boolean toread, boolean tobuy,
-                                            int NrTotalPages,int nrActualPage, int rating, ReadFrom readFrom, Date readDate)
+                                            int NrTotalPages,int nrActualPage, float rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 true,true,false,CoverType.EMPTY,"null","null",
@@ -178,7 +178,7 @@ public class Book implements IBook {
     }
     static public IBook getReadBook(String title, String author, BookType genre, String obs, Language lang,
                                     boolean toread, boolean tobuy,
-                                    int NrTotalPages,int rating, ReadFrom readFrom, Date readDate)
+                                    int NrTotalPages,float rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 false,true,false,CoverType.EMPTY,"null","null",
@@ -207,7 +207,7 @@ public class Book implements IBook {
     static public IBook getOwnedProgressReadBook(String title, String author, BookType genre, String obs, Language lang,
                                                  boolean toread, boolean tobuy,
                                                  CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                                                 int NrTotalPages, int nrActualPage,int rating, ReadFrom readFrom, Date readDate)
+                                                 int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 true,true,true,coverType,publisher,yearOfPublication,
@@ -217,7 +217,7 @@ public class Book implements IBook {
     static public IBook getOwnedReadBook(String title, String author, BookType genre, String obs, Language lang,
                                          boolean toread, boolean tobuy,
                                          CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                                         int NrTotalPages,int rating, ReadFrom readFrom, Date readDate)
+                                         int NrTotalPages,float rating, ReadFrom readFrom, Date readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 false,true,true,coverType,publisher,yearOfPublication,
@@ -327,8 +327,8 @@ public class Book implements IBook {
         int r=m_Read ? 1 : 0;
         int o=m_Owned ? 1 : 0;
         int p=m_inProgress ? 1 : 0;
-        String sqlquery="set "+DatabaseHelper._Title+"=' "+m_title+"'," +
-                DatabaseHelper._Author+"='"+m_author+"',"+
+        String sqlquery=" set "+DatabaseHelper._Title+"='"+m_title+"', " +
+                DatabaseHelper._Author+"='"+m_author+"', "+
                 DatabaseHelper._Toread+"="+tr+", "+
                 DatabaseHelper._Tobuy+"="+tb+", "+
                 DatabaseHelper._Read+"="+r+", "+
@@ -336,16 +336,56 @@ public class Book implements IBook {
                 DatabaseHelper._Progress+"="+p+", " +
                 DatabaseHelper._Genre+"='"+m_genre.toString()+"', "+
                 DatabaseHelper._Language+"='"+m_language.toString()+"', "+
-                DatabaseHelper._Obs+"='"+m_obs+"', "+
-                DatabaseHelper._Rating+"="+m_rating+", "+
-                DatabaseHelper._ReadFrom+"='"+m_readFrom.toString()+"', "+
-                DatabaseHelper._ReadDate+"="+m_readDate+", "+
-                DatabaseHelper._Cover+"='"+m_coverType.toString()+"', "+
-                DatabaseHelper._Publisher+"='"+m_publisher+"', "+
-                DatabaseHelper._Year+"='"+m_yearPublication+"', "+
-                DatabaseHelper._PurchaseDate+"="+m_purchaseDate+", "+
-                DatabaseHelper._TotalPages+"="+m_totalPages+", "+
-                DatabaseHelper._ActualPage+"="+m_actualPage+"";
+                DatabaseHelper._Obs+"='"+m_obs+"' ";
+
+        if(m_typeBook!=0)
+            sqlquery+=", ";
+        if(m_typeBook==1)
+            sqlquery+=DatabaseHelper._TotalPages+"="+m_totalPages+", "+
+                    DatabaseHelper._ActualPage+"="+m_actualPage;
+        if(m_typeBook==2)
+            sqlquery+=DatabaseHelper._TotalPages+"="+m_totalPages+", "+
+                    DatabaseHelper._ActualPage+"="+m_actualPage+", "+
+                    DatabaseHelper._Rating+"="+m_rating+", "+
+                    DatabaseHelper._ReadFrom+"= '"+m_readFrom.toString()+"', "+
+                    DatabaseHelper._ReadDate+"= '"+m_readDate+"'";
+        if(m_typeBook==3)
+            sqlquery+=DatabaseHelper._Rating+"="+m_rating+", "+
+                    DatabaseHelper._ReadFrom+"= '"+m_readFrom.toString()+"', "+
+                    DatabaseHelper._ReadDate+"='"+m_readDate+"', "+
+                    DatabaseHelper._TotalPages+"="+m_totalPages;
+        if(m_typeBook==4)
+            sqlquery+=DatabaseHelper._Cover+"='"+m_coverType.toString()+ "', "+
+                    DatabaseHelper._Publisher+"='"+m_publisher+"', "+
+                    DatabaseHelper._Year+"='"+m_yearPublication+"',"+
+                    DatabaseHelper._PurchaseDate+"='"+m_purchaseDate+"'";
+        if(m_typeBook==5)
+            sqlquery+=DatabaseHelper._Cover+"='"+m_coverType+"', "+
+                    DatabaseHelper._Publisher+"='"+m_publisher+"', "+
+                    DatabaseHelper._Year+"='"+m_yearPublication+"',"+
+                    DatabaseHelper._PurchaseDate+"='"+m_purchaseDate+"', "+
+                    DatabaseHelper._TotalPages+"="+m_totalPages+", "+
+                    DatabaseHelper._ActualPage+"="+m_actualPage;
+        if(m_typeBook==6)
+            sqlquery+=DatabaseHelper._Cover+"='"+m_coverType.toString()+"', "+
+                    DatabaseHelper._Publisher+"='"+m_publisher+"', "+
+                    DatabaseHelper._Year+"='"+m_yearPublication+"',"+
+                    DatabaseHelper._PurchaseDate+"='"+m_purchaseDate+"', "+
+                    DatabaseHelper._TotalPages+"="+m_totalPages+", "+
+                    DatabaseHelper._ActualPage+"="+m_actualPage+", "+
+                    DatabaseHelper._Rating+"="+m_rating+", "+
+                    DatabaseHelper._ReadFrom+"='"+m_readFrom.toString()+"', "+
+                    DatabaseHelper._ReadDate+"='"+m_readDate+"'";
+        if(m_typeBook==7)
+            sqlquery+=DatabaseHelper._Cover+"='"+m_coverType.toString()+"', "+
+                    DatabaseHelper._Publisher+"="+m_publisher+"', "+
+                    DatabaseHelper._Year+"='"+m_yearPublication+"',"+
+                    DatabaseHelper._PurchaseDate+"='"+m_purchaseDate+"', "+
+                    DatabaseHelper._Rating+"="+m_rating+", "+
+                    DatabaseHelper._ReadFrom+"='"+m_readFrom.toString()+"', "+
+                    DatabaseHelper._ReadDate+"='"+m_readDate+"', "+
+                    DatabaseHelper._TotalPages+"="+m_totalPages;
+        sqlquery+=", "+DatabaseHelper._Type+"="+m_typeBook;
 
         return sqlquery;
     }

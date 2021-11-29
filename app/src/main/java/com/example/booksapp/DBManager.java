@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import androidx.annotation.RequiresPermission;
 
@@ -26,7 +28,12 @@ public class DBManager {
     DatabaseHelper m_dbHelper;
     private SQLiteDatabase m_database;
     static private DBManager instance=null;
+    private MainActivity m_main;
 
+    public void setMain(MainActivity main)
+    {
+        m_main=main;
+    }
     static public DBManager getInstance()
     {
         if(instance==null)
@@ -82,8 +89,9 @@ public class DBManager {
         //ii dam un refresh in fragment
         String query=book.getInsertSqlString();
         m_database.execSQL(query);
-        //ContentValues cv=book.getValues();
-        //m_database.insert(DatabaseHelper.BOOK_TABLE,null,cv);
+        FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        fr.loadListToView();
+
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -187,11 +195,16 @@ public class DBManager {
         String query=book.getUpdateSqlString();
         query+= " Where "+DatabaseHelper._ID+" = "+id+";";
         m_database.execSQL(query);
+        FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        fr.loadListToView();
     }
 
-    public void delete(int id)
+    public void delete(long id)
     {
         //stergem cartea cu id ul din book;
+        m_database.execSQL("delete from "+ DatabaseHelper.BOOK_TABLE+" where "+DatabaseHelper._ID+" = "+String.valueOf(id));
+        FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        fr.loadListToView();
     }
     public ArrayList<BookViewForList> loadAllData()
     {

@@ -21,7 +21,7 @@ public interface IBook {
     abstract public int getM_totalPages();
     abstract public int getM_actualPage();
     abstract public boolean isM_Read();
-    abstract public int getM_rating();
+    abstract public float getM_rating();
     abstract public ReadFrom getM_readFrom();
     abstract public Date getM_readDate();
     abstract public boolean isM_Owned();
