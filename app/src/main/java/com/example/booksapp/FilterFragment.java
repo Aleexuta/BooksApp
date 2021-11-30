@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class SortFilterFragment extends Fragment implements View.OnClickListener {
+public class FilterFragment extends Fragment implements View.OnClickListener {
     private FloatingActionButton m_exit;
 
 
-    public SortFilterFragment() {
+    public FilterFragment() {
         // Required empty public constructor
     }
 
@@ -31,7 +31,7 @@ public class SortFilterFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview= inflater.inflate(R.layout.fragment_sort_filter, container, false);
+        View rootview= inflater.inflate(R.layout.fragment_filter, container, false);
         m_exit=rootview.findViewById(R.id.exitsort);
         m_exit.setOnClickListener(this);
         return rootview;
@@ -44,4 +44,6 @@ public class SortFilterFragment extends Fragment implements View.OnClickListener
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         }
     }
+
+
 }

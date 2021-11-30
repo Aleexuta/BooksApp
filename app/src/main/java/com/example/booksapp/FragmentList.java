@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
-import com.example.booksapp.Books.EditBook;
 import com.example.booksapp.Books.NewBook;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -28,6 +30,18 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
     private FloatingActionButton m_addbutton;
     private FloatingActionButton m_sortbutton;
     private FloatingActionButton m_menubutton;
+    private FloatingActionButton m_filtrebutton;
+    private FloatingActionButton m_searchbutton;
+    private ExtendedFloatingActionButton m_morebutton;
+    private ExtendedFloatingActionButton m_lessbutton;
+
+    private SearchView m_searchbox;
+    private TextView m_searchtext;
+    private TextView m_filtertext;
+    private TextView m_sorttext;
+
+    private boolean m_allFabs=false;
+    private boolean m_showssearch=false;
     public FragmentList() {
         // Required empty public constructor
     }
@@ -75,8 +89,53 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         m_menubutton=rootview.findViewById(R.id.menu);
         m_menubutton.setOnClickListener(this);
 
-        m_sortbutton=rootview.findViewById(R.id.sortFiltre);
+        m_morebutton=rootview.findViewById(R.id.expands);
+        m_morebutton.setOnClickListener(this);
+        m_morebutton.shrink();
+
+        m_lessbutton=rootview.findViewById(R.id.closeall);
+        m_lessbutton.setOnClickListener(this);
+        m_lessbutton.hide();
+        m_lessbutton.shrink();
+
+        m_sortbutton=rootview.findViewById(R.id.sort);
         m_sortbutton.setOnClickListener(this);
+        m_sortbutton.hide();
+
+        m_filtrebutton=rootview.findViewById(R.id.filtre);
+        m_filtrebutton.setOnClickListener(this);
+        m_filtrebutton.hide();
+
+        m_searchbutton=rootview.findViewById(R.id.search);
+        m_searchbutton.setOnClickListener(this);
+        m_searchbutton.hide();
+
+
+        m_filtertext=rootview.findViewById(R.id.filtertext);
+        m_filtertext.setVisibility(View.GONE);
+        m_sorttext=rootview.findViewById(R.id.sorttext);
+        m_sorttext.setVisibility(View.GONE);
+        m_searchtext=rootview.findViewById(R.id.searchtext);
+        m_searchtext.setVisibility(View.GONE);
+
+
+        m_searchbox=rootview.findViewById(R.id.searchbox);
+        m_searchbox.setVisibility(View.GONE);
+        m_searchbox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                myListAdapter.getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                myListAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+
         return rootview;
     }
 
@@ -102,11 +161,75 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
             FragmentTransaction transaction=   manager.beginTransaction();
             transaction.add(R.id.fragmentLayout, new MenuFragment()).addToBackStack("MENU").commit();
         }
-        if(view.getId()==m_sortbutton.getId())
+        if(view.getId()==m_morebutton.getId())
+        {
+            if(!m_allFabs)
+            {
+                m_sortbutton.show();
+                m_filtrebutton.show();
+                m_searchbutton.show();
+
+                m_morebutton.extend();
+                m_lessbutton.show();
+
+                m_sorttext.setVisibility(View.VISIBLE);
+                m_filtertext.setVisibility(View.VISIBLE);
+                m_searchtext.setVisibility(View.VISIBLE);
+                m_allFabs=true;
+            }
+        }
+        if(view.getId()==m_lessbutton.getId())
+        {
+            if(m_allFabs)
+            {
+                m_sortbutton.hide();
+                m_filtrebutton.hide();
+                m_searchbutton.hide();
+
+                m_lessbutton.shrink();
+                m_morebutton.shrink();
+                m_lessbutton.hide();
+
+
+                listview.setPadding(0,16,0,20);
+                listview.smoothScrollToPosition(0);
+
+                m_searchbox.setVisibility(View.GONE);
+                m_sorttext.setVisibility(View.GONE);
+                m_filtertext.setVisibility(View.GONE);
+                m_searchtext.setVisibility(View.GONE);
+                m_allFabs = false;
+            }
+        }
+        if(view.getId()==m_filtrebutton.getId())
         {
             FragmentManager manager=getActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
-            transaction.add(R.id.fragmentLayout, new SortFilterFragment()).addToBackStack("SORT").commit();
+            transaction.add(R.id.fragmentLayout, new FilterFragment()).addToBackStack("SORT").commit();
+        }
+        if(view.getId()==m_sortbutton.getId())
+        {
+
+        }
+        if(view.getId()==m_searchbutton.getId())
+        {
+            if(!m_showssearch) {
+                m_searchbox.setVisibility(View.VISIBLE);
+                listview.setPadding(0, 100, 0, 20);
+                listview.smoothScrollToPosition(0);
+                m_showssearch=true;
+            }
+            else
+            {
+                m_searchbox.setVisibility(View.GONE);
+                listview.setPadding(0,16,0,20);
+                listview.smoothScrollToPosition(0);
+                m_showssearch=false;
+
+                //fa sa dispara lista cautata, poate doar la apasarea unui buton
+                loadListToView();
+
+            }
         }
     }
 

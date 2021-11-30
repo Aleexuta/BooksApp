@@ -18,18 +18,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="45dp"
             android:divider="@null"
             android:dividerHeight="0dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/searchbox">
+
+        </ListView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="286dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -39,14 +42,12 @@
                 android:id="@+id/newbook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
-                android:src="@android:drawable/ic_input_add"
+                android:src="@drawable/ic_plus"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -54,26 +55,130 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
+                android:layout_marginBottom="16dp"
+
                 android:clickable="true"
-                android:src="@android:drawable/ic_dialog_dialer"
+                android:src="@drawable/ic_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/expands"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@null"
+                app:icon="@drawable/ic_show"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/closeall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/five_color"
+                app:icon="@drawable/ic_less"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/sortFiltre"
+                android:id="@+id/sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:clickable="true"
-                android:src="@android:drawable/ic_menu_sort_by_size"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/two_color"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/expands"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_sort"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <TextView
+                android:id="@+id/sorttext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="28dp"
+                android:text="Sort"
+                android:textSize="20sp"
+                android:background="@color/two_color"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/expands"
+                app:layout_constraintEnd_toStartOf="@+id/sort" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/filtre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/two_color"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/sort"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_filtre"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/filtertext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
+                android:text="Filter"
+                android:textColor="@color/black"
+                android:background="@color/two_color"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/sort"
+                app:layout_constraintEnd_toStartOf="@+id/filtre" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/two_color"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/filtre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_search"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/searchtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
+                android:text="Sort"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:background="@color/two_color"
+                app:layout_constraintBottom_toTopOf="@+id/filtre"
+                app:layout_constraintEnd_toStartOf="@+id/search" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <SearchView
+            android:id="@+id/searchbox"
+            android:layout_width="223dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/two_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

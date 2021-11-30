@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
@@ -18,11 +20,13 @@ import com.example.booksapp.Books.EditBook;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class MyListAdapter extends BaseAdapter {
+public class MyListAdapter extends BaseAdapter implements Filterable {
 
     private final Activity context;
     private ArrayList<BookViewForList> bookList;
+    private ListFilter valueFilter;
     //private IBook m_book;
     public MyListAdapter(Activity context, ArrayList<BookViewForList> list)
     {
@@ -30,6 +34,15 @@ public class MyListAdapter extends BaseAdapter {
         this.context=context;
         this.bookList=list;
     }
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter==null){
+            valueFilter=new ListFilter();
+        }
+        return valueFilter;
+    }
+
     @Override
     public int getCount()
     {
@@ -81,5 +94,43 @@ public class MyListAdapter extends BaseAdapter {
 
         return rowview;
     }
+    private class ListFilter extends Filter {
 
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults result=new FilterResults();
+            if(constraint!=null && constraint.length()>0)
+            {
+                ArrayList<BookViewForList> filtered=new ArrayList<>();
+                for(int i=0;i<bookList.size();i++)
+                {
+                    if(bookList.get(i).getM_title().toUpperCase().
+                            contains(constraint.toString().toUpperCase()) ||
+                        bookList.get(i).getM_author().toUpperCase().
+                            contains(constraint.toString().toUpperCase()) )
+                    {
+                        BookViewForList noua=new BookViewForList(
+                                bookList.get(i).getM_Id(),
+                                bookList.get(i).getM_title(),
+                                bookList.get(i).getM_author());
+                        filtered.add(noua);
+                    }
+                    result.count=filtered.size();
+                    result.values=filtered;
+                }
+            }
+            else
+            {
+                result.count=bookList.size();
+                result.values=bookList;
+            }
+            return result;
+        }
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            bookList=(ArrayList<BookViewForList>) results.values;
+            notifyDataSetChanged();
+        }
+    }
 }

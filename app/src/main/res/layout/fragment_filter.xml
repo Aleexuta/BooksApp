@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SortFilterFragment">
+    tools:context=".FilterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,17 +22,19 @@
             android:clickable="true"
             android:src="@android:drawable/ic_delete"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.chip.ChipGroup
-            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:id="@+id/categorylist"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="188dp"
+            android:layout_marginTop="156dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -40,32 +42,61 @@
                 android:id="@+id/toreadchip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
                 android:text="De citit" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/tobuychip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
                 android:text="De cumparat" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/boughtchip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
                 android:text="Detinute" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/readchip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Citite" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/progresschip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checkable="true"
                 android:text="In progres" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/readchip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="Citite" />
+
+
         </com.google.android.material.chip.ChipGroup>
+
+        <RadioGroup
+            android:id="@+id/genreRadioFilter"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categorylist" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:text="Filtre "
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
