@@ -12,80 +12,209 @@
         android:layout_marginStart="60dp"
         android:background="@color/two_color">
 
+        <FrameLayout
+            android:id="@+id/filterframelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categorylist"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/toreadchip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:chipBackgroundColor="@color/three_color"
+                        android:text="To read" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/tobuychip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipBackgroundColor="@color/three_color"
+                        android:checkable="true"
+                        android:text="To buy" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/boughtchip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipBackgroundColor="@color/three_color"
+                        android:checkable="true"
+                        android:text="Owned" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/progresschip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipBackgroundColor="@color/three_color"
+                        android:checkable="true"
+                        android:text="In progress" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/readchip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipBackgroundColor="@color/three_color"
+                        android:checkable="true"
+                        android:text="Read" />
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <ImageButton
+                    android:id="@+id/rightarrow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowright"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/godownlang"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowright"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categorylist"
+                    tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck,TouchTargetSizeCheck" />
+
+                <ImageButton
+                    android:id="@+id/gouplang"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categorylist"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <RadioGroup
+                    android:id="@+id/langauagegroup"
+                    android:layout_width="156dp"
+                    android:layout_height="103dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                    <RadioButton
+                        android:id="@+id/romanianradio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/three_color"
+                        android:text="Romanian" />
+
+                    <RadioButton
+                        android:id="@+id/englishradio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/three_color"
+                        android:text="English" />
+                </RadioGroup>
+
+                <ImageButton
+                    android:id="@+id/godowngenre"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowright"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/langauagegroup"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,DuplicateClickableBoundsCheck" />
+
+                <ImageButton
+                    android:id="@+id/goupgenre"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/langauagegroup"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <Spinner
+                    android:id="@+id/genrefiltre"
+                    android:layout_width="206dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:popupBackground="@color/three_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="103dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Language"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categorylist" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Genre"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/langauagegroup" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/exitsort"
+            android:id="@+id/exitfilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/three_color"
             android:clickable="true"
-            android:src="@android:drawable/ic_delete"
+            android:src="@drawable/ic_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/categorylist"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="156dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/toreadchip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="De citit" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tobuychip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="De cumparat" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/boughtchip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Detinute" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/progresschip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="In progres" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/readchip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Citite" />
-
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <RadioGroup
-            android:id="@+id/genreRadioFilter"
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categorylist" />
 
         <TextView
             android:id="@+id/textView"
@@ -93,10 +222,40 @@
             android:layout_height="37dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
-            android:text="Filtre "
+            android:text="Filter "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/checkfilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/three_color"
+            android:clickable="true"
+            android:src="@drawable/ic_checked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/resetfiltersbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/two_color"
+            android:textColor="@color/black"
+            android:text="Reset All Filters"
+            app:layout_constraintBottom_toTopOf="@+id/filterframelayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

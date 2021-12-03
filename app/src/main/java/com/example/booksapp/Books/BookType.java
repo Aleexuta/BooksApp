@@ -12,5 +12,4 @@ public enum BookType {
     Nonfiction,
     Romance,
     Others
-
 }

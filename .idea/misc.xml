@@ -8,14 +8,17 @@
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable-anydpi/ic_plus.xml" value="0.309375" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable/button_resources.xml" value="0.2875" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable/first_page_resources.xml" value="0.24635416666666668" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable/home_buttons_resources.xml" value="0.6" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable/list_item_resources.xml" value="0.2875" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_edit_book.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_filter.xml" value="0.36041666666666666" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_filter_second_page.xml" value="0.36041666666666666" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_list.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_list2.xml" value="0.2520833333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_menu.xml" value="0.3392210144927536" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_new_book.xml" value="0.3333333333333333" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_sort.xml" value="0.36041666666666666" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_sort_filter.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/mylist.xml" value="0.3333333333333333" />
       </map>

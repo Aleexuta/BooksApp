@@ -23,6 +23,7 @@ import com.example.booksapp.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -67,10 +68,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.fragment_new_book, container, false);
 
         Spinner spinner = v.findViewById(R.id.spinnergenre);
-        List<BookType> genre = new ArrayList<BookType>();
-        for (BookType b : BookType.values()) {
-            genre.add(b);
-        }
+        List<BookType> genre = new ArrayList<BookType>(Arrays.asList(BookType.values()));
         ArrayAdapter<BookType> adaptergenre = new ArrayAdapter<BookType>(this.getActivity(), android.R.layout.simple_spinner_item, genre);
         adaptergenre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adaptergenre);
@@ -79,10 +77,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         this.m_genre = spinner;
 
         Spinner spinner2 = v.findViewById(R.id.readedfromspinner);
-        List<ReadFrom> readfrom = new ArrayList<ReadFrom>();
-        for (ReadFrom b : ReadFrom.values()) {
-            readfrom.add(b);
-        }
+        List<ReadFrom> readfrom = new ArrayList<ReadFrom>(Arrays.asList(ReadFrom.values()));
         ArrayAdapter<ReadFrom> adapterread = new ArrayAdapter<ReadFrom>(this.getActivity(), android.R.layout.simple_spinner_item, readfrom);
         adapterread.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapterread);
@@ -91,10 +86,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         this.m_readfromspinner = spinner2;
 
         Spinner spinner3 = v.findViewById(R.id.coverbooktypespinner);
-        List<CoverType> ownedtype = new ArrayList<CoverType>();
-        for (CoverType b : CoverType.values()) {
-            ownedtype.add(b);
-        }
+        List<CoverType> ownedtype = new ArrayList<CoverType>(Arrays.asList(CoverType.values()));
         ArrayAdapter<CoverType> adapterown = new ArrayAdapter<CoverType>(this.getActivity(), android.R.layout.simple_spinner_item, ownedtype);
         adapterown.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner3.setAdapter(adapterown);
@@ -103,10 +95,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         this.m_coverbooktypespinner = spinner3;
 
         Spinner spinner4 = v.findViewById(R.id.languagespinner);
-        List<Language> language = new ArrayList<>();
-        for (Language b : Language.values()) {
-            language.add(b);
-        }
+        List<Language> language = new ArrayList<>(Arrays.asList(Language.values()));
         ArrayAdapter<Language> adapterlang = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, language);
         adapterlang.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner4.setAdapter(adapterlang);

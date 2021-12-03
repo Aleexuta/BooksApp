@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchbox">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         </ListView>
 
@@ -38,6 +38,48 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent">
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/colorhome"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/two_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/centercircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/home_buttons_resources"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/leftcircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/home_buttons_resources"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/rightcircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/home_buttons_resources"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/newbook"
                 android:layout_width="wrap_content"
@@ -45,6 +87,8 @@
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:src="@drawable/ic_plus"
+                app:backgroundTint="@color/three_color"
+                app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,9 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
                 android:layout_marginBottom="16dp"
-
                 android:clickable="true"
                 android:src="@drawable/ic_menu"
+                app:backgroundTint="@color/three_color"
+                app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -70,20 +115,20 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@null"
+                app:backgroundTint="@color/three_color"
                 app:icon="@drawable/ic_show"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/closeall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="33dp"
+                android:layout_height="38dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/five_color"
+                android:backgroundTint="@color/four_color"
                 app:icon="@drawable/ic_less"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +142,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/two_color"
-                app:fabSize="normal"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/expands"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_sort"
@@ -108,11 +153,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="28dp"
-                android:text="Sort"
-                android:textSize="20sp"
+                android:layout_marginBottom="26dp"
                 android:background="@color/two_color"
+                android:text="Sort"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/expands"
                 app:layout_constraintEnd_toStartOf="@+id/sort" />
 
@@ -123,7 +168,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/two_color"
-                app:fabSize="normal"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/sort"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_filtre"
@@ -134,10 +179,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/two_color"
                 android:text="Filter"
                 android:textColor="@color/black"
-                android:background="@color/two_color"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/sort"
                 app:layout_constraintEnd_toStartOf="@+id/filtre" />
@@ -149,7 +194,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/two_color"
-                app:fabSize="normal"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/filtre"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_search"
@@ -160,25 +205,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
-                android:text="Sort"
+                android:layout_marginBottom="16dp"
+                android:background="@color/two_color"
+                android:text="Search"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:background="@color/two_color"
                 app:layout_constraintBottom_toTopOf="@+id/filtre"
                 app:layout_constraintEnd_toStartOf="@+id/search" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <SearchView
-            android:id="@+id/searchbox"
-            android:layout_width="223dp"
-            android:layout_height="50dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/two_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <SearchView
+                android:id="@+id/searchbox"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

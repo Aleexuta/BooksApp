@@ -378,7 +378,7 @@ public class Book implements IBook {
                     DatabaseHelper._ReadDate+"='"+m_readDate+"'";
         if(m_typeBook==7)
             sqlquery+=DatabaseHelper._Cover+"='"+m_coverType.toString()+"', "+
-                    DatabaseHelper._Publisher+"="+m_publisher+"', "+
+                    DatabaseHelper._Publisher+"='"+m_publisher+"', "+
                     DatabaseHelper._Year+"='"+m_yearPublication+"',"+
                     DatabaseHelper._PurchaseDate+"='"+m_purchaseDate+"', "+
                     DatabaseHelper._Rating+"="+m_rating+", "+

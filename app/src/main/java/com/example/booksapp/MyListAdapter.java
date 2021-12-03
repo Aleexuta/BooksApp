@@ -26,6 +26,7 @@ public class MyListAdapter extends BaseAdapter implements Filterable {
 
     private final Activity context;
     private ArrayList<BookViewForList> bookList;
+    private ArrayList<BookViewForList> totalList;
     private ListFilter valueFilter;
     //private IBook m_book;
     public MyListAdapter(Activity context, ArrayList<BookViewForList> list)
@@ -33,6 +34,7 @@ public class MyListAdapter extends BaseAdapter implements Filterable {
 
         this.context=context;
         this.bookList=list;
+        this.totalList=list;
     }
 
     @Override
@@ -102,17 +104,17 @@ public class MyListAdapter extends BaseAdapter implements Filterable {
             if(constraint!=null && constraint.length()>0)
             {
                 ArrayList<BookViewForList> filtered=new ArrayList<>();
-                for(int i=0;i<bookList.size();i++)
+                for(int i=0;i<totalList.size();i++)
                 {
-                    if(bookList.get(i).getM_title().toUpperCase().
+                    if(totalList.get(i).getM_title().toUpperCase().
                             contains(constraint.toString().toUpperCase()) ||
-                        bookList.get(i).getM_author().toUpperCase().
+                            totalList.get(i).getM_author().toUpperCase().
                             contains(constraint.toString().toUpperCase()) )
                     {
                         BookViewForList noua=new BookViewForList(
-                                bookList.get(i).getM_Id(),
-                                bookList.get(i).getM_title(),
-                                bookList.get(i).getM_author());
+                                totalList.get(i).getM_Id(),
+                                totalList.get(i).getM_title(),
+                                totalList.get(i).getM_author());
                         filtered.add(noua);
                     }
                     result.count=filtered.size();
@@ -121,8 +123,8 @@ public class MyListAdapter extends BaseAdapter implements Filterable {
             }
             else
             {
-                result.count=bookList.size();
-                result.values=bookList;
+                result.count=totalList.size();
+                result.values=totalList;
             }
             return result;
         }

@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -19,6 +18,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class FragmentList extends Fragment implements  View.OnClickListener{
     private MainActivity main;
     private ListView listview;
@@ -119,6 +120,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         m_searchtext.setVisibility(View.GONE);
 
 
+
         m_searchbox=rootview.findViewById(R.id.searchbox);
         m_searchbox.setVisibility(View.GONE);
         m_searchbox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -138,26 +140,33 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
         return rootview;
     }
-
+    public void loadNewListToView(ArrayList<BookViewForList> arr)
+    {
+        booklist=arr;
+        myListAdapter=new MyListAdapter(getActivity(),booklist);
+        listview.setAdapter(myListAdapter);
+    }
     public void loadListToView()
     {
         booklist= dbManager.loadAllData(); //iei lista din  baza de date cu o functie;
         myListAdapter=new MyListAdapter(getActivity(),booklist);
         listview.setAdapter(myListAdapter);
     }
+    FilterFragment m_filtrefragment=new FilterFragment();
+
     @Override
     public void onClick(View view) {
         //manager.executePendingTransactions();
         //transaction.replace(R.id.fragmentLayout,new NewBookFragment()).commit();
         if(view.getId()==m_addbutton.getId())
         {
-            FragmentManager manager=getActivity().getSupportFragmentManager();
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
-            transaction.add(R.id.fragmentLayout, new NewBook()).addToBackStack("").commit();
+            transaction.add(R.id.fragmentLayout, new NewBook()).addToBackStack("ADD").commit();
         }
         if(view.getId()==m_menubutton.getId())
         {
-            FragmentManager manager=getActivity().getSupportFragmentManager();
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
             transaction.add(R.id.fragmentLayout, new MenuFragment()).addToBackStack("MENU").commit();
         }
@@ -191,7 +200,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
                 m_lessbutton.hide();
 
 
-                listview.setPadding(0,16,0,20);
+                listview.setPadding(0,16,0,0);
                 listview.smoothScrollToPosition(0);
 
                 m_searchbox.setVisibility(View.GONE);
@@ -203,33 +212,37 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         }
         if(view.getId()==m_filtrebutton.getId())
         {
-            FragmentManager manager=getActivity().getSupportFragmentManager();
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
-            transaction.add(R.id.fragmentLayout, new FilterFragment()).addToBackStack("SORT").commit();
+            transaction.add(R.id.fragmentLayout, m_filtrefragment).addToBackStack("FILTER").commit();
         }
         if(view.getId()==m_sortbutton.getId())
         {
-
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, new SortFragment()).addToBackStack("SORT").commit();
         }
         if(view.getId()==m_searchbutton.getId())
         {
-            if(!m_showssearch) {
-                m_searchbox.setVisibility(View.VISIBLE);
-                listview.setPadding(0, 100, 0, 20);
-                listview.smoothScrollToPosition(0);
-                m_showssearch=true;
-            }
-            else
-            {
-                m_searchbox.setVisibility(View.GONE);
-                listview.setPadding(0,16,0,20);
-                listview.smoothScrollToPosition(0);
-                m_showssearch=false;
+            SearchFunction();
+        }
 
-                //fa sa dispara lista cautata, poate doar la apasarea unui buton
-                loadListToView();
+    }
 
-            }
+    public void SearchFunction()
+    {
+        if(!m_showssearch) {
+            m_searchbox.setVisibility(View.VISIBLE);
+            listview.setPadding(0, 120, 0, 0);
+            listview.smoothScrollToPosition(0);
+            m_showssearch=true;
+        }
+        else
+        {
+            m_searchbox.setVisibility(View.GONE);
+            listview.setPadding(0,16,0,0);
+            listview.smoothScrollToPosition(0);
+            m_showssearch=false;
         }
     }
 

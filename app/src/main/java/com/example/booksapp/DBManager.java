@@ -50,29 +50,29 @@ public class DBManager {
         m_database=m_dbHelper.getWritableDatabase();
         return this;
     }
-
+    String [] columns=new String[]
+            {
+                    DatabaseHelper._ID,
+                    DatabaseHelper._Title,
+                    DatabaseHelper._Author
+                    /* DatabaseHelper._TypeOfBook,
+                     DatabaseHelper._Toread,
+                     DatabaseHelper._Tobuy,
+                     DatabaseHelper._Genre,
+                     DatabaseHelper._Language,
+                     DatabaseHelper._Rating,
+                     DatabaseHelper._ReadFrom,
+                     DatabaseHelper._Cover,
+                     DatabaseHelper._Publisher,
+                     DatabaseHelper._Year,
+                     DatabaseHelper._PurchaseDate,
+                     DatabaseHelper._ReadDate,
+                     DatabaseHelper._BookMark,
+                     DatabaseHelper._Obs*/
+            };
     public Cursor fetch()
     {
-        String [] columns=new String[]
-                {
-                        DatabaseHelper._ID,
-                        DatabaseHelper._Title,
-                        DatabaseHelper._Author
-                       /* DatabaseHelper._TypeOfBook,
-                        DatabaseHelper._Toread,
-                        DatabaseHelper._Tobuy,
-                        DatabaseHelper._Genre,
-                        DatabaseHelper._Language,
-                        DatabaseHelper._Rating,
-                        DatabaseHelper._ReadFrom,
-                        DatabaseHelper._Cover,
-                        DatabaseHelper._Publisher,
-                        DatabaseHelper._Year,
-                        DatabaseHelper._PurchaseDate,
-                        DatabaseHelper._ReadDate,
-                        DatabaseHelper._BookMark,
-                        DatabaseHelper._Obs*/
-                };
+
         Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, columns,null,null,null,null,null);
         if(cursor !=null)
             cursor.moveToFirst();
@@ -90,6 +90,7 @@ public class DBManager {
         String query=book.getInsertSqlString();
         m_database.execSQL(query);
         FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        assert fr != null;
         fr.loadListToView();
 
     }
@@ -152,12 +153,15 @@ public class DBManager {
                     }
                     case 2:{
                         book=Book.getProgressReadBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),
-                                Integer.parseInt(ap),Integer.parseInt(rat), ReadFrom.valueOf(rf),readeddate);
+                                Integer.parseInt(ap), Float.parseFloat(rat), ReadFrom.valueOf(rf),readeddate);
                         break;
                     }
                     case 3:{
-                        book=Book.getReadBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),
-                                Integer.parseInt(rat),ReadFrom.valueOf(rf),readeddate);
+                        book=Book.getReadBook(tit, aut, bt, obs, lg, tr, tb,
+                                Integer.parseInt(tp),
+                                Float.parseFloat(rat),
+                                ReadFrom.valueOf(rf),
+                                readeddate);
                         break;
                     }
                     case 4: {
@@ -172,12 +176,12 @@ public class DBManager {
                     case 6:{
                         book=Book.getOwnedProgressReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
                                 pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(ap),
-                                Integer.parseInt(rat),ReadFrom.valueOf(rf),readeddate);
+                                Float.parseFloat(rat),ReadFrom.valueOf(rf),readeddate);
                         break;
                     }
                     case 7:{
                         book=Book.getOwnedReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
-                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(rat),
+                                pub,year,purchase,Integer.parseInt(tp), Float.parseFloat(rat),
                                 ReadFrom.valueOf(rf),readeddate);
                         break;
                     }
@@ -196,6 +200,7 @@ public class DBManager {
         query+= " Where "+DatabaseHelper._ID+" = "+id+";";
         m_database.execSQL(query);
         FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        assert fr != null;
         fr.loadListToView();
     }
 
@@ -204,6 +209,7 @@ public class DBManager {
         //stergem cartea cu id ul din book;
         m_database.execSQL("delete from "+ DatabaseHelper.BOOK_TABLE+" where "+DatabaseHelper._ID+" = "+String.valueOf(id));
         FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        assert fr != null;
         fr.loadListToView();
     }
     public ArrayList<BookViewForList> loadAllData()
@@ -218,6 +224,28 @@ public class DBManager {
             BookViewForList nou=new BookViewForList(id,title,author);
             list.add(nou);
         }
+        return list;
+    }
+
+    public ArrayList<BookViewForList> selectWhere(String selection, String[] selectionArgs)
+    {
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, columns,selection,selectionArgs,null,null,null);
+
+
+
+        ArrayList<BookViewForList> list=new ArrayList<>();
+        while(cursor.moveToNext())
+        {
+            long id=cursor.getLong( cursor.getColumnIndexOrThrow(DatabaseHelper._ID));
+            String title=cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper._Title));
+            String author=cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper._Author));
+            BookViewForList nou=new BookViewForList(id,title,author);
+            list.add(nou);
+        }
+
+        FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
+        assert fr != null;
+        fr.loadNewListToView(list);
         return list;
     }
 
