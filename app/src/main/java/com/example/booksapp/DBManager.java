@@ -1,15 +1,10 @@
 package com.example.booksapp;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
-
-import androidx.annotation.RequiresPermission;
 
 import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.BookType;
@@ -18,10 +13,7 @@ import com.example.booksapp.Books.IBook;
 import com.example.booksapp.Books.Language;
 import com.example.booksapp.Books.ReadFrom;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 public class DBManager {
@@ -74,8 +66,7 @@ public class DBManager {
     {
 
         Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, columns,null,null,null,null,null);
-        if(cursor !=null)
-            cursor.moveToFirst();
+
         return cursor;
     }
     public void close()

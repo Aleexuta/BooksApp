@@ -17,11 +17,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.booksapp.DBManager;
-import com.example.booksapp.FragmentList;
 import com.example.booksapp.R;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;

@@ -14,11 +14,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.booksapp.Books.NewBook;
+import com.example.booksapp.Filters.FilterFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class FragmentList extends Fragment implements  View.OnClickListener{
     private MainActivity main;

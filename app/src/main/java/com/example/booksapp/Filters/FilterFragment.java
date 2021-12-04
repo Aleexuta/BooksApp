@@ -1,4 +1,4 @@
-package com.example.booksapp;
+package com.example.booksapp.Filters;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -16,18 +16,25 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.example.booksapp.BookViewForList;
 import com.example.booksapp.Books.BookType;
 import com.example.booksapp.Books.Language;
+import com.example.booksapp.DBManager;
+import com.example.booksapp.DatabaseHelper;
+import com.example.booksapp.Filters.FilterSecondPage;
+import com.example.booksapp.FragmentList;
+import com.example.booksapp.R;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class FilterFragment extends Fragment implements View.OnClickListener {
-    private final FilterSecondPage secondpage=new FilterSecondPage();
+    private FilterSecondPage secondpage;
 
     private FloatingActionButton m_exit;
     private FloatingActionButton m_filter;
@@ -53,6 +60,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     public FilterFragment() {
         // Required empty public constructor
+        secondpage=new FilterSecondPage();
     }
 
 
@@ -89,10 +97,16 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         m_genregroup.setAdapter(adaptergenre);
 
         m_read=rootview.findViewById(R.id.readchip);
+        m_read.setOnClickListener(this);
         m_owned=rootview.findViewById(R.id.boughtchip);
+        m_owned.setOnClickListener(this);
         m_toread=rootview.findViewById(R.id.toreadchip);
+        m_toread.setOnClickListener(this);
         m_tobuy=rootview.findViewById(R.id.tobuychip);
+        m_tobuy.setOnClickListener(this);
         m_progress=rootview.findViewById(R.id.progresschip);
+        m_progress.setOnClickListener(this);
+
         for (boolean x: m_checkedvalue) {
             x=false;
         }
@@ -132,6 +146,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
         m_goright=rootview.findViewById(R.id.rightarrow1);
         m_goright.setOnClickListener(this);
+        NeedSecondPage();
         return rootview;
     }
 
@@ -139,12 +154,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId()==m_exit.getId())
         {
-            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            removePages();
         }
         if(v.getId()==m_filter.getId())
         {
             //filtreaza cu baza de date
-            FiltreData();
+            filterData();
+            secondpage.filterData();
+            Filter.Filter();
+            removePages();
         }
         if(v.getId()==m_downgenre.getId())
         {
@@ -178,8 +196,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         if(v.getId()==m_goright.getId())
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction=   manager.beginTransaction();
+            FragmentTransaction transaction=manager.beginTransaction();
             transaction.add(R.id.filterframelayout, secondpage).addToBackStack("2ndPage").commit();
+            secondpage.setWhatIsVisible(m_checkedvalue[4],m_checkedvalue[2]);
         }
 
         if(v.getId()==m_progress.getId())
@@ -194,7 +213,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         }
         if(v.getId()==m_owned.getId())
         {
-            m_checkedvalue[2]=!m_checkedvalue[4];
+            m_checkedvalue[2]=!m_checkedvalue[2];
             NeedSecondPage();
         }
         if(v.getId()==m_toread.getId())
@@ -213,12 +232,12 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     ArrayList<String> selectionArgs = new ArrayList<>();
 
 
-    private void FiltreData()
+    private void filterData()
     {
         selection="";
         selectionArgs.removeAll(selectionArgs);
         if(m_toread.isChecked()) {
-            selection+=DatabaseHelper._Toread+" =? and ";
+            selection+= DatabaseHelper._Toread+" =? and ";
             selectionArgs.add("1");
         }
         if(m_tobuy.isChecked()) {
@@ -254,13 +273,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
             selection+=DatabaseHelper._Genre+" =? and ";
             selectionArgs.add(m_genregroup.getSelectedItem().toString());
         }
-        if(selection.length()>4) {
-
-            selection=selection.substring(0, selection.length() - 4);
-            DBManager db = DBManager.getInstance();
-            ArrayList<BookViewForList> arr=db.selectWhere(selection, selectionArgs.toArray(new String[0]));
-
-        }
+        Filter.addFilters(selection,selectionArgs);
+        selection="";
+        selectionArgs.removeAll(selectionArgs);
     }
 
     private void NeedSecondPage()
@@ -273,5 +288,15 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         {
             m_goright.setVisibility(View.GONE);
         }
+    }
+    private void removePages()
+    {
+        FragmentManager manager= requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction=manager.beginTransaction();
+        Fragment sec = manager.findFragmentById(R.id.filterframelayout);
+        if(sec!=null)
+            transaction.remove(sec);
+
+        transaction.remove(this).commit();
     }
 }

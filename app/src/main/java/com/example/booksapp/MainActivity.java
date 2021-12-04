@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.SurfaceControl;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         dbManager.setMain(this);
         FragmentManager manager = getSupportFragmentManager();
         transaction=manager.beginTransaction();
-        transaction.replace(R.id.fragmentLayout,FragmentList.newInstance(this),"LISTA").commit();
+        transaction.replace(R.id.fragmentLayout, FragmentList.newInstance(this),"LISTA").commit();
         //transaction.replace(R.id.fragmentLayout,new ListFragment(this)," ");
         //transaction.commit();
 

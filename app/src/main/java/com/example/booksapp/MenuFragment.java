@@ -12,8 +12,6 @@ import android.widget.Button;
 import com.example.booksapp.Books.NewBook;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Objects;
-
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
     private FloatingActionButton m_exit;
