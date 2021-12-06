@@ -1,18 +1,21 @@
 package com.example.booksapp.Books;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -24,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -160,6 +164,10 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         m_year.setVisibility(View.GONE);
         m_boughtdate.setVisibility(View.GONE);
 
+        m_readdate.setOnClickListener(this);
+        m_readdate.setInputType(InputType.TYPE_NULL);
+        m_boughtdate.setOnClickListener(this);
+        m_boughtdate.setInputType(InputType.TYPE_NULL);
 
         LoadBook();
 
@@ -299,6 +307,37 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             return;
         }
 
+        if(idv==m_readdate.getId())
+        {
+            final Calendar clrd=Calendar.getInstance();
+            int day=clrd.get(Calendar.DAY_OF_MONTH);
+            int month=clrd.get(Calendar.MONTH);
+            int year=clrd.get(Calendar.YEAR);
+
+            DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    m_readdate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                }
+            },year,month,day);
+            picker.show();
+        }
+
+        if(idv==m_boughtdate.getId())
+        {
+            final Calendar clrd=Calendar.getInstance();
+            int day=clrd.get(Calendar.DAY_OF_MONTH);
+            int month=clrd.get(Calendar.MONTH);
+            int year=clrd.get(Calendar.YEAR);
+
+            DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    m_boughtdate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                }
+            },year,month,day);
+            picker.show();
+        }
     }
 
     public boolean onBackPressed() { return false; }

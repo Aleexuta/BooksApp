@@ -3,6 +3,8 @@ package com.example.booksapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.booksapp.Books.NewBook;
+import com.example.booksapp.Filters.Filter;
+import com.example.booksapp.Filters.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
@@ -22,10 +26,18 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Button m_filter;
     private Button m_sort;
 
+    FilterFragment filterFragment;
+    SortFragment sortFragment;
+
     public MenuFragment() {
         // Required empty public constructor
     }
 
+    public MenuFragment(FilterFragment fr,SortFragment sr)
+    {
+        filterFragment=fr;
+        sortFragment=sr;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +96,20 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             FragmentList fr=(FragmentList) requireActivity().getSupportFragmentManager().findFragmentByTag("LISTA");
             assert fr != null;
             fr.SearchFunction();
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        }
+        if(v.getId()==m_filter.getId())
+        {
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, filterFragment).addToBackStack("FILTER").commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        }
+        if(v.getId()==m_sort.getId())
+        {
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, sortFragment).addToBackStack("SORT").commit();
             requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         }
     }

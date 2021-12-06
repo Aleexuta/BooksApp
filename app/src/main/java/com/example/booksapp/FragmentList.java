@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class FragmentList extends Fragment implements  View.OnClickListener{
+
     private MainActivity main;
     private ListView listview;
     private MyListAdapter myListAdapter;
@@ -153,7 +154,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         listview.setAdapter(myListAdapter);
     }
     FilterFragment m_filtrefragment=new FilterFragment();
-
+    SortFragment m_sortfragment=new SortFragment();
     @Override
     public void onClick(View view) {
         //manager.executePendingTransactions();
@@ -168,7 +169,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
-            transaction.add(R.id.fragmentLayout, new MenuFragment()).addToBackStack("MENU").commit();
+            transaction.add(R.id.fragmentLayout, new MenuFragment(m_filtrefragment,m_sortfragment)).addToBackStack("MENU").commit();
         }
         if(view.getId()==m_morebutton.getId())
         {
@@ -220,7 +221,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=   manager.beginTransaction();
-            transaction.add(R.id.fragmentLayout, new SortFragment()).addToBackStack("SORT").commit();
+            transaction.add(R.id.fragmentLayout, m_sortfragment).addToBackStack("SORT").commit();
         }
         if(view.getId()==m_searchbutton.getId())
         {

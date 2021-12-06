@@ -54,14 +54,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             _Progress+" INTEGER DEFAULT 0,"+
             _Genre+ " TEXT, "+
             _Language+ " TEXT, "+
-            _Rating+" REAL, "+
+            _Rating+" REAL, "+ //read
             _ReadFrom+ " TEXT, "+
             _ReadDate+ " DATE, "+
-            _Cover+ " TEXT, "+
+            _Cover+ " TEXT, "+//owned
             _Publisher+" TEXT, "+
             _Year+ " TEXT, "+
             _PurchaseDate+" DATE, "+
-            _TotalPages+" INT,"+
+            _TotalPages+" INT,"+//progress
             _ActualPage+" INT,"+
             _Obs+ " TEXT,"+
             _Type+" INTEGER);";

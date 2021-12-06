@@ -1,5 +1,7 @@
 package com.example.booksapp.Filters;
 
+import android.annotation.SuppressLint;
+
 import com.example.booksapp.BookViewForList;
 import com.example.booksapp.Books.Language;
 import com.example.booksapp.DBManager;
@@ -9,6 +11,8 @@ import com.example.booksapp.FragmentList;
 import java.util.ArrayList;
 
 public class Filter {
+
+
 
     static String selection = "";
     static ArrayList<String> selectionArgs = new ArrayList<>();

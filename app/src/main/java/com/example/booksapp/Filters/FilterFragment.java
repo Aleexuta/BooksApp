@@ -34,7 +34,8 @@ import java.util.Objects;
 
 
 public class FilterFragment extends Fragment implements View.OnClickListener {
-    private FilterSecondPage secondpage;
+    private FilterSecondPage second;
+    private FilterThirdPage third;
 
     private FloatingActionButton m_exit;
     private FloatingActionButton m_filter;
@@ -60,7 +61,8 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     public FilterFragment() {
         // Required empty public constructor
-        secondpage=new FilterSecondPage();
+        third=new FilterThirdPage();
+        second=new FilterSecondPage(third);
     }
 
 
@@ -160,7 +162,8 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         {
             //filtreaza cu baza de date
             filterData();
-            secondpage.filterData();
+            second.filterData();
+            third.filterData();
             Filter.Filter();
             removePages();
         }
@@ -192,15 +195,6 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
             m_downlang.setVisibility(View.VISIBLE);
             m_checkedvalue[5]=false;
         }
-
-        if(v.getId()==m_goright.getId())
-        {
-            FragmentManager manager= requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction=manager.beginTransaction();
-            transaction.add(R.id.filterframelayout, secondpage).addToBackStack("2ndPage").commit();
-            secondpage.setWhatIsVisible(m_checkedvalue[4],m_checkedvalue[2]);
-        }
-
         if(v.getId()==m_progress.getId())
         {
             m_checkedvalue[3]=!m_checkedvalue[3];
@@ -224,6 +218,28 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         {
            m_checkedvalue[1]=!m_checkedvalue[1];
         }
+
+
+        if(v.getId()==m_goright.getId())
+        {
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=manager.beginTransaction();
+            if(m_checkedvalue[4])
+            {
+                transaction.add(R.id.filterframelayout, second).addToBackStack("2ndPage").commit();
+                second.setWhatIsVisible(m_checkedvalue[2],m_checkedvalue[3]);
+            }
+            else if(m_checkedvalue[2])
+            {
+                transaction.add(R.id.filterframelayout, third).addToBackStack("3rdPage").commit();
+                third.setWhatIsVisible(m_checkedvalue[3]);
+            }
+            else if (m_checkedvalue[3])
+            {
+                //a 4 a pagina
+            }
+        }
+
     }
 
 
@@ -293,10 +309,11 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     {
         FragmentManager manager= requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        Fragment sec = manager.findFragmentById(R.id.filterframelayout);
-        if(sec!=null)
-            transaction.remove(sec);
-
+        Fragment frag=manager.findFragmentByTag("LISTA");
+        for (Fragment fragment : manager.getFragments()) {
+            if(fragment!=frag)
+               transaction.remove(fragment);
+        }
         transaction.remove(this).commit();
     }
 }

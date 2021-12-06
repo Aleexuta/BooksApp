@@ -1,16 +1,22 @@
 package com.example.booksapp.Filters;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,9 +34,11 @@ import com.example.booksapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class FilterSecondPage extends Fragment implements View.OnClickListener {
+    private FilterThirdPage third;
 
     private TextView m_rattext;
     private ImageButton m_downrat;
@@ -46,20 +54,28 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
     private ImageButton m_uprf;
     private Spinner m_readfromfilter;
 
-
-    private TextView m_covertext;
-    private ImageButton m_downcover;
-    private ImageButton m_upcover;
-    private Spinner m_coverfilter;
+    private TextView m_rdtext;
+    private ImageButton m_downrd;
+    private ImageButton m_uprd;
+    private EditText m_rdmin;
+    private EditText m_rdmax;
+    private TextView m_lin;
+    private CheckBox m_mincb;
+    private CheckBox m_maxcb;
 
     private ImageButton m_right;
     private ImageButton m_left;
 
     private boolean[] m_boolcheked=new boolean[6];
-    public void setWhatIsVisible(boolean read,boolean owned)
+    public void setWhatIsVisible(boolean owned,boolean progress)
     {
-        m_boolcheked[3]=read;
+        m_boolcheked[3]=true;
         m_boolcheked[4]=owned;
+        m_boolcheked[5]=progress;
+    }
+    public FilterSecondPage(FilterThirdPage th)
+    {
+        third=th;
     }
     public FilterSecondPage() {
         // Required empty public constructor
@@ -96,34 +112,40 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
         m_downrf=rootview.findViewById(R.id.godownreadfrom);
         m_downrf.setOnClickListener(this);
         m_uprf=rootview.findViewById(R.id.goupreadfrom);
-        m_uprat.setOnClickListener(this);
+        m_uprf.setOnClickListener(this);
         m_readfromfilter=rootview.findViewById(R.id.readfromfilter);
         List<ReadFrom> readfrom = new ArrayList<ReadFrom>(Arrays.asList(ReadFrom.values()));
         ArrayAdapter<ReadFrom> adapterread = new ArrayAdapter<ReadFrom>(this.getActivity(), android.R.layout.simple_spinner_item, readfrom);
         adapterread.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         m_readfromfilter.setAdapter(adapterread);
 
-        //m_ownedlayout=rootview.findViewById(R.id.ownedcheckedfilter);
-        m_covertext=rootview.findViewById(R.id.textView7);
+        m_rdmin=rootview.findViewById(R.id.readdatefilterstg);
+        m_rdmin.setInputType(InputType.TYPE_NULL);
+        m_rdmin.setOnClickListener(this);
+        m_rdmax=rootview.findViewById(R.id.readdatefilterdr);
+        m_rdmax.setInputType(InputType.TYPE_NULL);
+        m_rdmax.setOnClickListener(this);
+        m_downrd=rootview.findViewById(R.id.godownreaddate);
+        m_downrd.setOnClickListener(this);
+        m_uprd=rootview.findViewById(R.id.goupreaddate);
+        m_uprd.setOnClickListener(this);
+        m_mincb=rootview.findViewById(R.id.minsupressed);
+        m_mincb.setOnClickListener(this);
+        m_maxcb=rootview.findViewById(R.id.maxsupressed);
+        m_maxcb.setOnClickListener(this);
+
         m_rattext=rootview.findViewById(R.id.textView5);
         m_rftext=rootview.findViewById(R.id.textView6);
+        m_rdtext=rootview.findViewById(R.id.textView7);
+        m_lin=rootview.findViewById(R.id.textView8);
 
 
-        m_downcover=rootview.findViewById(R.id.godowncover);
-        m_downcover.setOnClickListener(this);
-        m_upcover=rootview.findViewById(R.id.goupcover);
-        m_upcover.setOnClickListener(this);
-        m_coverfilter=rootview.findViewById(R.id.coverfilter);
-        List<CoverType> ownedtype = new ArrayList<CoverType>(Arrays.asList(CoverType.values()));
-        ArrayAdapter<CoverType> adapterown = new ArrayAdapter<CoverType>(this.getActivity(), android.R.layout.simple_spinner_item, ownedtype);
-        adapterown.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        m_coverfilter.setAdapter(adapterown);
 
 
-        m_left=rootview.findViewById(R.id.leftarrow1);
+        m_left=rootview.findViewById(R.id.leftarrow2);
         m_left.setOnClickListener(this);
-        m_right=rootview.findViewById(R.id.rightarrow1);
-       // m_right.setOnClickListener(this);
+        m_right=rootview.findViewById(R.id.rightarrow2);
+        m_right.setOnClickListener(this);
 
         setVisible();
 
@@ -144,6 +166,13 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
             m_rat.setVisibility(View.GONE);
             m_radgroup.setVisibility(View.GONE);
             m_readfromfilter.setVisibility(View.GONE);
+            m_rdmin.setVisibility(View.GONE);
+            m_rdmax.setVisibility(View.GONE);
+            m_lin.setVisibility(View.GONE);
+            m_downrd.setVisibility(View.GONE);
+            m_uprd.setVisibility(View.GONE);
+            m_mincb.setVisibility(View.GONE);
+            m_maxcb.setVisibility(View.GONE);
         }
         else
         {
@@ -173,47 +202,36 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
                 m_downrf.setVisibility(View.VISIBLE);
                 m_uprf.setVisibility(View.GONE);
             }
-        }
-    }
-    private void setOwnedVisible(boolean owned)
-    {
-        if(!owned)
-        {
-            m_downcover.setVisibility(View.GONE);
-            m_upcover.setVisibility(View.GONE);
-            m_covertext.setVisibility(View.GONE);
-            m_coverfilter.setVisibility(View.GONE);
-        }
-        else
-        {
-
 
             if(m_boolcheked[2])
             {
-                m_coverfilter.setVisibility(View.VISIBLE);
-                m_downcover.setVisibility(View.GONE);
-                m_upcover.setVisibility(View.VISIBLE);
+                m_rdmin.setVisibility(View.VISIBLE);
+                m_rdmax.setVisibility(View.VISIBLE);
+                m_lin.setVisibility(View.VISIBLE);
+                m_downrd.setVisibility(View.GONE);
+                m_uprd.setVisibility(View.VISIBLE);
+                m_mincb.setVisibility(View.VISIBLE);
+                m_maxcb.setVisibility(View.VISIBLE);
+
+                m_rdmin.setEnabled(m_mincb.isChecked());
+                m_rdmax.setEnabled(m_maxcb.isChecked());
             }
             else
             {
-                m_coverfilter.setVisibility(View.GONE);
-                m_downcover.setVisibility(View.VISIBLE);
-                m_upcover.setVisibility(View.GONE);
+                m_rdmin.setVisibility(View.GONE);
+                m_rdmax.setVisibility(View.GONE);
+                m_lin.setVisibility(View.GONE);
+                m_downrd.setVisibility(View.VISIBLE);
+                m_uprd.setVisibility(View.GONE);
+                m_mincb.setVisibility(View.GONE);
+                m_maxcb.setVisibility(View.GONE);
             }
         }
     }
+
     @Override
     public void onClick(View v) {
-        if(v.getId()==m_downcover.getId())
-        {
-            m_boolcheked[2]=true;
-            setVisible();
-        }
-        if(v.getId()==m_upcover.getId())
-        {
-            m_boolcheked[2]=false;
-            setVisible();
-        }
+
         if(v.getId()==m_downrat.getId())
         {
             m_boolcheked[0]=true;
@@ -234,19 +252,86 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
             m_boolcheked[1]=false;
             setVisible();
         }
+        if(v.getId()==m_uprd.getId())
+        {
+            m_boolcheked[2]=false;
+            setVisible();
+        }
+        if(v.getId()==m_downrd.getId())
+        {
+            m_boolcheked[2]=true;
+            setVisible();
+        }
+        if(v.getId()==m_rdmin.getId() )
+        {
+            final Calendar clrd=Calendar.getInstance();
+            int day=clrd.get(Calendar.DAY_OF_MONTH);
+            int month=clrd.get(Calendar.MONTH);
+            int year=clrd.get(Calendar.YEAR);
 
+            DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    m_rdmin.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                }
+            },year,month,day);
+            picker.show();
+        }
+        if(v.getId()==m_rdmax.getId())
+        {
+            final Calendar clrd=Calendar.getInstance();
+            int day=clrd.get(Calendar.DAY_OF_MONTH);
+            int month=clrd.get(Calendar.MONTH);
+            int year=clrd.get(Calendar.YEAR);
+
+            DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    m_rdmax.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                }
+            },year,month,day);
+            picker.show();
+        }
+        if(m_mincb.getId()==v.getId())
+        {
+            if(m_mincb.isChecked())
+                m_rdmin.setEnabled(true);
+            else
+                m_rdmin.setEnabled(false);
+        }
+        if(m_maxcb.getId()==v.getId())
+        {
+            if(m_maxcb.isChecked())
+                m_rdmax.setEnabled(true);
+            else
+                m_rdmax.setEnabled(false);
+        }
         if(v.getId()==m_left.getId())
         {
             requireActivity().getSupportFragmentManager().popBackStack();
+        }
+        if(v.getId()==m_right.getId())
+        {
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=manager.beginTransaction();
+            if(m_boolcheked[4])
+            {
+                transaction.add(R.id.filterframelayout, third).addToBackStack("2ndPage").commit();
+                third.setWhatIsVisible(m_boolcheked[5]);
+
+            }
         }
     }
 
     public void setVisible( ) {
 
         boolean read=m_boolcheked[3];
-        boolean owned=m_boolcheked[4];
         setReadVisible(read);
-        setOwnedVisible(owned);
+
+        if(m_boolcheked[4] || m_boolcheked[5])
+            m_right.setVisibility(View.VISIBLE);
+        else
+            m_right.setVisibility(View.GONE);
     }
 
     String selection = "";
@@ -271,8 +356,22 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
         }
         if(m_boolcheked[2])
         {
-            selection+=DatabaseHelper._Cover+" =? and ";
-            selectionArgs.add(m_coverfilter.getSelectedItem().toString());
+            if(m_mincb.isChecked() && m_maxcb.isChecked())
+            {
+                selection+=DatabaseHelper._ReadDate+" >=? and <=? and ";
+                selectionArgs.add(m_rdmin.toString());
+                selectionArgs.add(m_rdmax.toString());
+            }
+            else if(m_mincb.isChecked())
+            {
+                selection+=DatabaseHelper._ReadDate+" >=? and ";
+                selectionArgs.add(m_rdmin.toString());
+            }
+            else if(m_maxcb.isChecked())
+            {
+                selection+=DatabaseHelper._ReadDate+" <=? and ";
+                selectionArgs.add(m_rdmax.toString());
+            }
         }
         Filter.addFilters(selection,selectionArgs);
         selection="";
