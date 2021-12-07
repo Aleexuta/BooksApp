@@ -177,7 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
-            android:text="Read Date"
+            android:text="Bought Date"
             android:textColor="#455A64"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yearmin" />
@@ -211,7 +211,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="to"
             app:layout_constraintStart_toEndOf="@+id/yearmin"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -221,7 +221,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="From"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -248,7 +248,8 @@
             android:buttonTint="@color/three_color"
             android:checked="true"
             app:layout_constraintStart_toEndOf="@+id/boughtdatefilterstg"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <CheckBox
             android:id="@+id/maxsupressed2"
@@ -268,11 +269,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:hint="start year"
             android:inputType="number"
             android:minHeight="48dp"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
         <EditText
             android:id="@+id/yearmax"
@@ -282,9 +284,11 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="number"
+            android:minHeight="48dp"
+            android:hint="end year"
             app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/right3"

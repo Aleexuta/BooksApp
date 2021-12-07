@@ -1,8 +1,10 @@
 package com.example.booksapp.Filters;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,8 +37,7 @@ import java.util.Objects;
 
 
 public class FilterFragment extends Fragment implements View.OnClickListener {
-    private FilterSecondPage second;
-    private FilterThirdPage third;
+
 
     private FloatingActionButton m_exit;
     private FloatingActionButton m_filter;
@@ -58,11 +60,11 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
     private Spinner m_genregroup;
 
     private ImageButton m_goright;
+    private Button m_reset;
 
     public FilterFragment() {
         // Required empty public constructor
-        third=new FilterThirdPage();
-        second=new FilterSecondPage(third);
+
     }
 
 
@@ -148,10 +150,14 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
         m_goright=rootview.findViewById(R.id.rightarrow1);
         m_goright.setOnClickListener(this);
+
+        m_reset=rootview.findViewById(R.id.resetfiltersbutton);
+        m_reset.setOnClickListener(this);
         NeedSecondPage();
         return rootview;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         if(v.getId()==m_exit.getId())
@@ -161,9 +167,11 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         if(v.getId()==m_filter.getId())
         {
             //filtreaza cu baza de date
+            Filter filtre=Filter.getInstance();
             filterData();
-            second.filterData();
-            third.filterData();
+            filtre.getSecond().filterData();
+            filtre.getThrid().filterData();
+            filtre.getFourth().filterData();
             Filter.Filter();
             removePages();
         }
@@ -224,20 +232,30 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
-            if(m_checkedvalue[4])
+            Filter filtre=Filter.getInstance();
+            if(m_checkedvalue[4])//read, trimit progress si owned
             {
-                transaction.add(R.id.filterframelayout, second).addToBackStack("2ndPage").commit();
-                second.setWhatIsVisible(m_checkedvalue[2],m_checkedvalue[3]);
+                transaction.add(R.id.filterframelayout,filtre.getSecond()).addToBackStack("2ndPage").commit();
+                filtre.getSecond().setWhatIsVisible(m_checkedvalue[2],m_checkedvalue[3]);
             }
-            else if(m_checkedvalue[2])
+            else if(m_checkedvalue[2])//owned trimit progress si read
             {
-                transaction.add(R.id.filterframelayout, third).addToBackStack("3rdPage").commit();
-                third.setWhatIsVisible(m_checkedvalue[3]);
+                transaction.add(R.id.filterframelayout, filtre.getThrid()).addToBackStack("3rdPage").commit();
+                filtre.getThrid().setWhatIsVisible(m_checkedvalue[3],m_checkedvalue[4]);
             }
-            else if (m_checkedvalue[3])
+            else if (m_checkedvalue[3])//progress trimit read si progress
             {
-                //a 4 a pagina
+                transaction.add(R.id.filterframelayout, filtre.getFourth()).addToBackStack("4thPage").commit();
+                filtre.getFourth().setWhatIsVisible(m_checkedvalue[4],m_checkedvalue[3]);
             }
+        }
+        if(v.getId()==m_reset.getId())
+        {
+            FragmentList fr=(FragmentList) requireActivity().getSupportFragmentManager().findFragmentByTag("LISTA");
+            assert fr != null;
+            fr.loadListToView();
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            Filter.resetFilters();
         }
 
     }

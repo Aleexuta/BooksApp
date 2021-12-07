@@ -23,10 +23,10 @@ public interface IBook {
     abstract public boolean isM_Read();
     abstract public float getM_rating();
     abstract public ReadFrom getM_readFrom();
-    abstract public Date getM_readDate();
+    abstract public String getM_readDate();
     abstract public boolean isM_Owned();
     abstract public CoverType getM_coverType();
     abstract public String getM_publisher();
     abstract public String getM_yearPublication();
-    abstract public Date getM_purchaseDate();
+    abstract public String getM_purchaseDate();
 }

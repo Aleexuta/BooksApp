@@ -1,9 +1,13 @@
 package com.example.booksapp.Filters;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -21,10 +25,13 @@ import com.example.booksapp.Books.CoverType;
 import com.example.booksapp.DatabaseHelper;
 import com.example.booksapp.R;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FilterThirdPage extends Fragment implements  View.OnClickListener{
 
@@ -60,15 +67,19 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
     private ImageButton m_left;
     private ImageButton m_right;
 
-    private boolean[] m_boolcheked=new boolean[6];
+    private boolean[] m_boolcheked=new boolean[7];
 
-    public void setWhatIsVisible(boolean progress)
+    public void setWhatIsVisible(boolean progress,boolean read)
     {
         m_boolcheked[4]=true;//owned
         m_boolcheked[5]=progress;
+        m_boolcheked[6]=read;
     }
     public FilterThirdPage() {
         // Required empty public constructor
+        for (boolean x:m_boolcheked) {
+            x=false;
+        }
     }
 
 
@@ -287,7 +298,7 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_mindate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_mindate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -302,7 +313,7 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_maxdate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_maxdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -319,6 +330,16 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
         if(v.getId()==m_left.getId())
         {
             requireActivity().getSupportFragmentManager().popBackStack();
+        }if(v.getId()==m_right.getId())
+        {
+            if(m_boolcheked[5] || m_boolcheked[6])
+            {
+                FragmentManager manager= requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                Filter filter=Filter.getInstance();
+                transaction.add(R.id.filterframelayout, filter.getFourth()).addToBackStack("4thPage").commit();
+                filter.getFourth().setWhatIsVisible(m_boolcheked[6],m_boolcheked[5]);
+            }
         }
     }
 
@@ -327,7 +348,7 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
         setOwnedVisible(m_boolcheked[4]);
 
         //daca e si in progress at afisam sagetica la dreapta
-        if(m_boolcheked[5])
+        if(m_boolcheked[5] || m_boolcheked[6])
             m_right.setVisibility(View.VISIBLE);
         else
             m_right.setVisibility(View.GONE);
@@ -338,6 +359,7 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
     ArrayList<String> selectionArgs = new ArrayList<>();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void filterData()
     {
         if(m_boolcheked[0])
@@ -348,32 +370,36 @@ public class FilterThirdPage extends Fragment implements  View.OnClickListener{
         if(m_boolcheked[1])
         {
             selection+=DatabaseHelper._Publisher+" =? and ";
-            selectionArgs.add(m_publisher.toString());
+            selectionArgs.add(m_publisher.getText().toString());
         }
         if(m_boolcheked[2])
         {
             selection+=DatabaseHelper._Year+" >=? and <=? and ";
-            selectionArgs.add(m_minyear.toString());
-            selectionArgs.add(m_maxyear.toString());
+            selectionArgs.add(m_minyear.getText().toString());
+            selectionArgs.add(m_maxyear.getText().toString());
         }
         if(m_boolcheked[3])
         {
             if(m_mincb.isChecked() && m_maxcb.isChecked())
             {
-                selection+=DatabaseHelper._ReadDate+" >=? and <=? and ";
-                selectionArgs.add(m_mindate.toString());
-                selectionArgs.add(m_maxdate.toString());
-            }
+                selection+=DatabaseHelper._PurchaseDate+" between ? and ? and ";
+
+                selectionArgs.add(m_mindate.getText().toString());
+                selectionArgs.add(m_maxdate.getText().toString());
+            } else
             if(m_mincb.isChecked())
             {
                 selection+=DatabaseHelper._ReadDate+" >=? and ";
-                selectionArgs.add(m_mindate.toString());
-            }
+                selectionArgs.add(m_mindate.getText().toString());
+            } else
             if(m_maxcb.isChecked())
             {
                 selection+=DatabaseHelper._ReadDate+" <=? and ";
-                selectionArgs.add(m_maxdate.toString());
+                selectionArgs.add(m_maxdate.getText().toString());
             }
         }
+        Filter.addFilters(selection,selectionArgs);
+        selection="";
+        selectionArgs.removeAll(selectionArgs);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.booksapp.Filters;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.constraintlayout.widget.Group;
@@ -32,13 +34,16 @@ import com.example.booksapp.Books.ReadFrom;
 import com.example.booksapp.DatabaseHelper;
 import com.example.booksapp.R;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FilterSecondPage extends Fragment implements View.OnClickListener {
-    private FilterThirdPage third;
+
 
     private TextView m_rattext;
     private ImageButton m_downrat;
@@ -66,19 +71,16 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
     private ImageButton m_right;
     private ImageButton m_left;
 
-    private boolean[] m_boolcheked=new boolean[6];
+    private boolean[] m_boolcheked=new boolean[7];
     public void setWhatIsVisible(boolean owned,boolean progress)
     {
         m_boolcheked[3]=true;
         m_boolcheked[4]=owned;
         m_boolcheked[5]=progress;
     }
-    public FilterSecondPage(FilterThirdPage th)
-    {
-        third=th;
-    }
     public FilterSecondPage() {
         // Required empty public constructor
+
         for (boolean x:m_boolcheked) {
             x=false;
         }
@@ -272,7 +274,7 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_rdmin.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_rdmin.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -287,7 +289,7 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_rdmax.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_rdmax.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -314,11 +316,17 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
-            if(m_boolcheked[4])
+            Filter filter=Filter.getInstance();
+            if(m_boolcheked[4])//owned trimit read si progress
             {
-                transaction.add(R.id.filterframelayout, third).addToBackStack("2ndPage").commit();
-                third.setWhatIsVisible(m_boolcheked[5]);
+                transaction.add(R.id.filterframelayout, filter.getThrid()).addToBackStack("3thPage").commit();
+                filter.getThrid().setWhatIsVisible(m_boolcheked[5],m_boolcheked[3]);
 
+            } else
+            if(m_boolcheked[5] || m_boolcheked[3])//progress trimit progress si read
+            {
+                transaction.add(R.id.filterframelayout, filter.getFourth()).addToBackStack("4thPage").commit();
+                filter.getFourth().setWhatIsVisible(m_boolcheked[3],m_boolcheked[5]);
             }
         }
     }
@@ -328,15 +336,14 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
         boolean read=m_boolcheked[3];
         setReadVisible(read);
 
-        if(m_boolcheked[4] || m_boolcheked[5])
-            m_right.setVisibility(View.VISIBLE);
-        else
-            m_right.setVisibility(View.GONE);
+        m_right.setVisibility(View.VISIBLE);
+
     }
 
     String selection = "";
     ArrayList<String> selectionArgs = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void filterData()
     {
         if(m_boolcheked[0])
@@ -358,19 +365,21 @@ public class FilterSecondPage extends Fragment implements View.OnClickListener {
         {
             if(m_mincb.isChecked() && m_maxcb.isChecked())
             {
-                selection+=DatabaseHelper._ReadDate+" >=? and <=? and ";
-                selectionArgs.add(m_rdmin.toString());
-                selectionArgs.add(m_rdmax.toString());
+                selection+=DatabaseHelper._ReadDate+" >=? and "+
+                        DatabaseHelper._ReadDate+" <=? and ";
+
+                selectionArgs.add(m_rdmin.getText().toString());
+                selectionArgs.add(m_rdmax.getText().toString());
             }
             else if(m_mincb.isChecked())
             {
                 selection+=DatabaseHelper._ReadDate+" >=? and ";
-                selectionArgs.add(m_rdmin.toString());
+                selectionArgs.add(m_rdmin.getText().toString());
             }
             else if(m_maxcb.isChecked())
             {
                 selection+=DatabaseHelper._ReadDate+" <=? and ";
-                selectionArgs.add(m_rdmax.toString());
+                selectionArgs.add(m_rdmax.getText().toString());
             }
         }
         Filter.addFilters(selection,selectionArgs);

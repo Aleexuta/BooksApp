@@ -202,8 +202,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             m_ratbar.setRating(book.getM_rating());
             pos = ReadFrom.valueOf(book.getM_readFrom().toString()).ordinal();
             m_readfromspinner.setSelection(pos);
-            String date=formatter.format(new Date(book.getM_readDate().toString()));
-            m_readdate.setText(date);
+            m_readdate.setText(book.getM_readDate());
             m_totalpages.setText(String.valueOf(book.getM_totalPages()));
 
 
@@ -225,8 +224,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             m_coverbooktypespinner.setSelection(pos);
             m_publicatie.setText(book.getM_publisher());
             m_year.setText(book.getM_yearPublication());
-            String date=formatter.format(new Date(book.getM_purchaseDate().toString()));
-            m_boughtdate.setText(date);
+            m_boughtdate.setText(book.getM_purchaseDate());
 
             m_coverbooktypespinner.setVisibility(View.VISIBLE);
             m_publicatie.setVisibility(View.VISIBLE);
@@ -317,7 +315,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_readdate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_readdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -333,7 +331,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_boughtdate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    m_boughtdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -359,26 +357,10 @@ public class EditBook extends Fragment implements  View.OnClickListener{
         boolean owned = m_owned.isChecked();
         boolean read = m_read.isChecked();
         boolean progress = m_progress.isChecked();
-        Date readeddate=null;
-        if (read) {
 
-            try {
-                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                readeddate = formatter.parse(m_readdate.getText().toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
         if (owned) {
             CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
-            Date purchdate =null;
-            try {
-                android.icu.text.SimpleDateFormat formatter= new android.icu.text.SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                purchdate = formatter.parse(m_boughtdate.getText().toString());
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
             String pub=m_publicatie.getText().toString();
             String year=m_year.getText().toString();
 
@@ -388,11 +370,9 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
-                assert purchdate != null;
-                assert readeddate != null;
                 newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
                         , ct, pub,
-                        year, purchdate, tp,tp, rat, rf, readeddate);
+                        year, m_boughtdate.getText().toString(), tp,tp, rat, rf, m_readdate.getText().toString());
             } else if (progress) {
 
 
@@ -400,7 +380,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
                 newbook = Book.getOwnedProgressBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        ct,pub, year, purchdate, tp, ap);
+                        ct,pub, year, m_boughtdate.getText().toString(), tp, ap);
 
             } else if (read) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
@@ -410,10 +390,10 @@ public class EditBook extends Fragment implements  View.OnClickListener{
 
                 newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
                         ct, pub, year,
-                        purchdate, tp, rat, rf, readeddate);
+                        m_boughtdate.getText().toString(), tp, rat, rf, m_readdate.getText().toString());
             } else {
                 newbook = Book.getOwnedBook(titlu, autor, gen, obs, lang, toread, tobuy, ct,
-                        pub, year, purchdate);
+                        pub, year, m_boughtdate.getText().toString());
             }
 
         } else//nu e cumparata
@@ -426,7 +406,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
                 newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        tp, ap, rat, rf, readeddate);
+                        tp, ap, rat, rf, m_readdate.getText().toString());
             } else if (progress) {
                 int tp = Integer.parseInt(m_totalpages.getText().toString());
                 int ap = Integer.parseInt(m_acutalpage.getText().toString());
@@ -438,7 +418,7 @@ public class EditBook extends Fragment implements  View.OnClickListener{
                 float rat =m_ratbar.getRating();
                 ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
 
-                newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, readeddate);
+                newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, m_readdate.getText().toString());
             } else {
                 newbook = Book.getSimpleBook(titlu, autor, gen, obs, lang, toread, tobuy);
             }

@@ -29,6 +29,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     FilterFragment filterFragment;
     SortFragment sortFragment;
 
+    private Button m_load;
+    private Button m_save;
     public MenuFragment() {
         // Required empty public constructor
     }
@@ -70,6 +72,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         m_sort=rootview.findViewById(R.id.sortbuttonmenu);
         m_sort.setOnClickListener(this);
 
+        m_load=rootview.findViewById(R.id.loadList);
+        m_load.setOnClickListener(this);
+
+        m_save=rootview.findViewById(R.id.saveList);
+        m_save.setOnClickListener(this);
+
         return rootview;
     }
 
@@ -90,6 +98,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             assert fr != null;
             fr.loadListToView();
             requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            Filter.resetFilters();
         }
         if(v.getId()==m_search.getId())
         {
@@ -111,6 +120,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             FragmentTransaction transaction=   manager.beginTransaction();
             transaction.add(R.id.fragmentLayout, sortFragment).addToBackStack("SORT").commit();
             requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        }
+        if(v.getId()==m_load.getId())
+        {
+
+        }
+        if(v.getId()==m_save.getId())
+        {
+
         }
     }
 

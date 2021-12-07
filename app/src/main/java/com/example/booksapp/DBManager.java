@@ -124,14 +124,6 @@ public class DBManager {
                 int tip=Integer.parseInt(cursor.getString(19));
 
 
-                Date readeddate=null;
-                if(r)
-                    readeddate=new Date(rd);
-                Date purchase=null;
-                if(o)
-                    purchase= new Date(pd);
-
-
                 //in functie de tipul cartii creez cartea
                 switch (tip) {
                     case 0: {
@@ -144,7 +136,7 @@ public class DBManager {
                     }
                     case 2:{
                         book=Book.getProgressReadBook(tit, aut, bt, obs, lg, tr, tb,Integer.parseInt(tp),
-                                Integer.parseInt(ap), Float.parseFloat(rat), ReadFrom.valueOf(rf),readeddate);
+                                Integer.parseInt(ap), Float.parseFloat(rat), ReadFrom.valueOf(rf),rd);
                         break;
                     }
                     case 3:{
@@ -152,28 +144,28 @@ public class DBManager {
                                 Integer.parseInt(tp),
                                 Float.parseFloat(rat),
                                 ReadFrom.valueOf(rf),
-                                readeddate);
+                                rd);
                         break;
                     }
                     case 4: {
-                        book=Book.getOwnedBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),pub,year,purchase);
+                        book=Book.getOwnedBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),pub,year,pd);
                         break;
                     }
                     case 5: {
                         book=Book.getOwnedProgressBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
-                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(ap));
+                                pub,year,pd,Integer.parseInt(tp),Integer.parseInt(ap));
                         break;
                     }
                     case 6:{
                         book=Book.getOwnedProgressReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
-                                pub,year,purchase,Integer.parseInt(tp),Integer.parseInt(ap),
-                                Float.parseFloat(rat),ReadFrom.valueOf(rf),readeddate);
+                                pub,year,pd,Integer.parseInt(tp),Integer.parseInt(ap),
+                                Float.parseFloat(rat),ReadFrom.valueOf(rf),rd);
                         break;
                     }
                     case 7:{
                         book=Book.getOwnedReadBook(tit, aut, bt, obs, lg, tr, tb,CoverType.valueOf(cv),
-                                pub,year,purchase,Integer.parseInt(tp), Float.parseFloat(rat),
-                                ReadFrom.valueOf(rf),readeddate);
+                                pub,year,pd,Integer.parseInt(tp), Float.parseFloat(rat),
+                                ReadFrom.valueOf(rf),rd);
                         break;
                     }
                     default:

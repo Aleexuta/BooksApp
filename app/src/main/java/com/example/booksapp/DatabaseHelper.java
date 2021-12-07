@@ -56,11 +56,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             _Language+ " TEXT, "+
             _Rating+" REAL, "+ //read
             _ReadFrom+ " TEXT, "+
-            _ReadDate+ " DATE, "+
+            _ReadDate+ " TEXT, "+
             _Cover+ " TEXT, "+//owned
             _Publisher+" TEXT, "+
             _Year+ " TEXT, "+
-            _PurchaseDate+" DATE, "+
+            _PurchaseDate+" TEXT, "+
             _TotalPages+" INT,"+//progress
             _ActualPage+" INT,"+
             _Obs+ " TEXT,"+

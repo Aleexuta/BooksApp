@@ -17,6 +17,13 @@ public class Filter {
     static String selection = "";
     static ArrayList<String> selectionArgs = new ArrayList<>();
     static public boolean[] activePages=new boolean[3];
+    static Filter instance=null;
+
+    private FilterFragment first;
+    private FilterSecondPage second;
+    private FilterThirdPage third;
+    private FilterFourthPage fourth;
+
     static void Filter()
     {
         if(selection.length()>4) {
@@ -41,11 +48,34 @@ public class Filter {
         selectionArgs.addAll(selargs);
     }
 
-    static void resetActivePages()
+    public static void resetFilters()
     {
-        for (boolean x:
-             activePages) {
-            x=false;
-        }
+        instance=new Filter();
     }
+    Filter()
+    {
+        first=new FilterFragment();
+        second=new FilterSecondPage();
+        third=new FilterThirdPage();
+        fourth=new FilterFourthPage();
+    }
+    static public Filter getInstance()
+    {
+        if(instance==null)
+            instance=new Filter();
+        return instance;
+    }
+    public FilterSecondPage getSecond()
+    {
+        return second;
+    }
+    public FilterThirdPage getThrid()
+    {
+        return third;
+    }
+    public FilterFourthPage getFourth()
+    {
+        return fourth;
+    }
+
 }

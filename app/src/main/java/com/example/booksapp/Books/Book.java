@@ -61,7 +61,7 @@ public class Book implements IBook {
         return m_readFrom;
     }
 
-    public Date getM_readDate() {
+    public String getM_readDate() {
         return m_readDate;
     }
 
@@ -81,7 +81,7 @@ public class Book implements IBook {
         return m_yearPublication;
     }
 
-    public Date getM_purchaseDate() {
+    public String getM_purchaseDate() {
         return m_purchaseDate;
     }
 
@@ -100,13 +100,13 @@ public class Book implements IBook {
     protected boolean m_Read=false;
     protected float m_rating=0;
     protected ReadFrom m_readFrom=ReadFrom.EMPTY;
-    protected Date m_readDate =null;
+    protected String m_readDate ="";
 
     protected boolean m_Owned=false;
     protected CoverType m_coverType=CoverType.EMPTY;
     protected String m_publisher="";
     protected String m_yearPublication="";
-    protected Date m_purchaseDate=null;
+    protected String m_purchaseDate="";
 
     protected int m_typeBook; //0-normala
     //1-progress
@@ -130,8 +130,8 @@ public class Book implements IBook {
 
     public Book(String title, String author, BookType genre, String obs, Language lang,
                 boolean toread, boolean tobuy, boolean inprogress, boolean read, boolean owned,
-                CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, Date readDate,
+                CoverType coverType, String publisher, String yearOfPublication, String dateOfPurchase,
+                int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, String readDate,
                 int tip)
     {
         setSimpleBook(tobuy,toread,title,author,genre,obs,lang);
@@ -170,7 +170,7 @@ public class Book implements IBook {
 
     static public IBook getProgressReadBook(String title, String author, BookType genre, String obs, Language lang,
                                             boolean toread, boolean tobuy,
-                                            int NrTotalPages,int nrActualPage, float rating, ReadFrom readFrom, Date readDate)
+                                            int NrTotalPages,int nrActualPage, float rating, ReadFrom readFrom, String readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 true,true,false,CoverType.EMPTY,"null","null",
@@ -178,7 +178,7 @@ public class Book implements IBook {
     }
     static public IBook getReadBook(String title, String author, BookType genre, String obs, Language lang,
                                     boolean toread, boolean tobuy,
-                                    int NrTotalPages,float rating, ReadFrom readFrom, Date readDate)
+                                    int NrTotalPages,float rating, ReadFrom readFrom, String readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 false,true,false,CoverType.EMPTY,"null","null",
@@ -187,7 +187,7 @@ public class Book implements IBook {
 
     static public IBook getOwnedBook(String title, String author, BookType genre, String obs, Language lang,
                                      boolean toread, boolean tobuy,
-                                     CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase)
+                                     CoverType coverType, String publisher, String yearOfPublication, String dateOfPurchase)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 false,false,true,coverType,publisher,yearOfPublication,
@@ -196,7 +196,7 @@ public class Book implements IBook {
 
     static public IBook getOwnedProgressBook(String title, String author, BookType genre, String obs, Language lang,
                                              boolean toread, boolean tobuy,
-                                             CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
+                                             CoverType coverType, String publisher, String yearOfPublication, String dateOfPurchase,
                                              int nrPagesTotal, int nrActualPage)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
@@ -206,8 +206,8 @@ public class Book implements IBook {
 
     static public IBook getOwnedProgressReadBook(String title, String author, BookType genre, String obs, Language lang,
                                                  boolean toread, boolean tobuy,
-                                                 CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                                                 int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, Date readDate)
+                                                 CoverType coverType, String publisher, String yearOfPublication, String dateOfPurchase,
+                                                 int NrTotalPages, int nrActualPage,float rating, ReadFrom readFrom, String readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 true,true,true,coverType,publisher,yearOfPublication,
@@ -216,8 +216,8 @@ public class Book implements IBook {
 
     static public IBook getOwnedReadBook(String title, String author, BookType genre, String obs, Language lang,
                                          boolean toread, boolean tobuy,
-                                         CoverType coverType, String publisher, String yearOfPublication, Date dateOfPurchase,
-                                         int NrTotalPages,float rating, ReadFrom readFrom, Date readDate)
+                                         CoverType coverType, String publisher, String yearOfPublication, String dateOfPurchase,
+                                         int NrTotalPages,float rating, ReadFrom readFrom, String readDate)
     {
         return new Book(title,author,genre,obs,lang,toread,tobuy,
                 false,true,true,coverType,publisher,yearOfPublication,
