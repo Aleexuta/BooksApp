@@ -37,14 +37,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DB_NAME="BOOKSAPP.DB";
     static final int DB_VERSION=1;
 
-    static public String[] _COLUMNS_NAME={_Title,_Author,_Genre,
+    static public String[] _COLUMNS_NAME={_Type,_Title,_Author,_Genre,
             _Obs,_Language,
             _Toread,_Tobuy,_Progress,_Read,_Owned,
             _Cover,_Publisher,_Year,_PurchaseDate,
-            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate,_Type};
+            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate};
 
     private static final String CREATE_TABLE =" create table "+BOOK_TABLE+"("+
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            _Type+" INTEGER, "+
             _Title+" TEXT NOT NULL, "+
             _Author+" TEXT NOT NULL, "+
             _Toread+ " INTEGER DEFAULT 0, "+
@@ -63,9 +64,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             _PurchaseDate+" TEXT, "+
             _TotalPages+" INT,"+//progress
             _ActualPage+" INT,"+
-            _Obs+ " TEXT,"+
-            _Type+" INTEGER);";
+            _Obs+ " TEXT);";
 
+    public static final int NO_COLUMNS=_COLUMNS_NAME.length;
     public DatabaseHelper(Context context)
     {
         super(context,DB_NAME,null, DB_VERSION);

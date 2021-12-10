@@ -80,7 +80,8 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
         listview=(ListView) rootview.findViewById(R.id.listlayout);
         loadListToView();
-
+        listview.setPadding(0,16,0,0);
+        listview.smoothScrollToPosition(0);
 
 
         FloatingActionButton addbookbutton=(FloatingActionButton) rootview.findViewById(R.id.newbook);

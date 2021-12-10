@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:ems="10"
-                    android:hint="Bounght date"
+                    android:hint="Bought date"
                     android:inputType="date"
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"

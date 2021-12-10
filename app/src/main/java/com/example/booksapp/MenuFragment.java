@@ -1,11 +1,15 @@
 package com.example.booksapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +20,12 @@ import com.example.booksapp.Filters.Filter;
 import com.example.booksapp.Filters.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+
 public class MenuFragment extends Fragment implements View.OnClickListener {
+
+    Intent m_chosefileintent;
+
 
     private FloatingActionButton m_exit;
 
@@ -123,13 +132,28 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         }
         if(v.getId()==m_load.getId())
         {
+            String [] mimeTypes={ "application/vnd.ms-excel",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"};
+            m_chosefileintent=new Intent(Intent.ACTION_GET_CONTENT);
+            m_chosefileintent.setType("text/csv");
+            //m_chosefileintent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            m_chosefileintent.addCategory(Intent.CATEGORY_OPENABLE);
+            requireActivity().startActivityForResult(m_chosefileintent,10);
+
 
         }
         if(v.getId()==m_save.getId())
         {
-
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("text/csv");
+            intent.putExtra(Intent.EXTRA_TITLE,"backupBooks.xlsx");
+            requireActivity().startActivityForResult(intent,20);
         }
     }
+
+
+
 
     public boolean onBackPressed()
     {

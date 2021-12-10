@@ -47,20 +47,6 @@ public class DBManager {
                     DatabaseHelper._ID,
                     DatabaseHelper._Title,
                     DatabaseHelper._Author
-                    /* DatabaseHelper._TypeOfBook,
-                     DatabaseHelper._Toread,
-                     DatabaseHelper._Tobuy,
-                     DatabaseHelper._Genre,
-                     DatabaseHelper._Language,
-                     DatabaseHelper._Rating,
-                     DatabaseHelper._ReadFrom,
-                     DatabaseHelper._Cover,
-                     DatabaseHelper._Publisher,
-                     DatabaseHelper._Year,
-                     DatabaseHelper._PurchaseDate,
-                     DatabaseHelper._ReadDate,
-                     DatabaseHelper._BookMark,
-                     DatabaseHelper._Obs*/
             };
     public Cursor fetch()
     {
@@ -96,32 +82,32 @@ public class DBManager {
 
         if (cursor.moveToFirst()){
             do{
-                String tit=cursor.getString(0);
-                String aut=cursor.getString(1);
-                BookType bt=BookType.valueOf(cursor.getString(2));
-                String obs=cursor.getString(3);
-                Language lg=Language.valueOf(cursor.getString(4));
+                String tit=cursor.getString(1);
+                String aut=cursor.getString(2);
+                BookType bt=BookType.valueOf(cursor.getString(3));
+                String obs=cursor.getString(4);
+                Language lg=Language.valueOf(cursor.getString(5));
 
-                boolean tr= cursor.getString(5).equals("1");
-                boolean tb= cursor.getString(6).equals("1");
-                boolean p= cursor.getString(7).equals("1");
-                boolean r= cursor.getString(8).equals("1");
-                boolean o= cursor.getString(9).equals("1");
+                boolean tr= cursor.getString(6).equals("1");
+                boolean tb= cursor.getString(7).equals("1");
+                boolean p= cursor.getString(8).equals("1");
+                boolean r= cursor.getString(9).equals("1");
+                boolean o= cursor.getString(10).equals("1");
 
-                String rd=cursor.getString(18);
-                String pd=cursor.getString(13);
+                String rd=cursor.getString(19);
+                String pd=cursor.getString(14);
 
-                String cv=cursor.getString(10);//cover
-                String pub=cursor.getString(11);
-                String year= cursor.getString(12);
+                String cv=cursor.getString(11);//cover
+                String pub=cursor.getString(12);
+                String year= cursor.getString(13);
 
-                String tp=cursor.getString(14);
-                String ap=cursor.getString(15);
-                String rat=cursor.getString(16);
+                String tp=cursor.getString(15);
+                String ap=cursor.getString(16);
+                String rat=cursor.getString(17);
 
-                String rf=cursor.getString(17);
+                String rf=cursor.getString(18);
 
-                int tip=Integer.parseInt(cursor.getString(19));
+                int tip=Integer.parseInt(cursor.getString(0));
 
 
                 //in functie de tipul cartii creez cartea
@@ -232,4 +218,10 @@ public class DBManager {
         return list;
     }
 
+
+    public Cursor loadAllBooks()
+    {
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, DatabaseHelper._COLUMNS_NAME,null,null,null,null,null);
+        return cursor;
+    }
 }
