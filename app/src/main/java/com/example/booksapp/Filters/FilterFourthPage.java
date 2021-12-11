@@ -1,11 +1,9 @@
 package com.example.booksapp.Filters;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.booksapp.DatabaseHelper;
+import com.example.booksapp.DB.DatabaseHelper;
 import com.example.booksapp.R;
 
 import java.util.ArrayList;

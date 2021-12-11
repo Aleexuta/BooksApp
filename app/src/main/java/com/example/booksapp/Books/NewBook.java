@@ -19,16 +19,13 @@ import android.widget.Spinner;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.example.booksapp.DBManager;
+import com.example.booksapp.DB.DBManager;
 import com.example.booksapp.R;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class NewBook extends Fragment implements View.OnClickListener {
     public NewBook() {

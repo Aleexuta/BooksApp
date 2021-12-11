@@ -2,9 +2,7 @@ package com.example.booksapp.Books;
 
 import android.content.ContentValues;
 
-import com.example.booksapp.DatabaseHelper;
-
-import java.util.Date;
+import com.example.booksapp.DB.DatabaseHelper;
 
 public class Book implements IBook {
 

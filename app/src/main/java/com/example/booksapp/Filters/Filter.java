@@ -1,12 +1,6 @@
 package com.example.booksapp.Filters;
 
-import android.annotation.SuppressLint;
-
-import com.example.booksapp.BookViewForList;
-import com.example.booksapp.Books.Language;
-import com.example.booksapp.DBManager;
-import com.example.booksapp.DatabaseHelper;
-import com.example.booksapp.FragmentList;
+import com.example.booksapp.DB.DBManager;
 
 import java.util.ArrayList;
 

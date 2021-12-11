@@ -23,10 +23,140 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="128dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="100dp"/>
+            android:layout_marginBottom="100dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Title "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/godowntitle"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowright"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck,TouchTargetSizeCheck" />
+
+                <ImageButton
+                    android:id="@+id/gouptitle"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <RadioGroup
+                    android:id="@+id/titleradiogroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20">
+
+                    <RadioButton
+                        android:id="@+id/ascTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:buttonTint="@color/three_color"
+                        android:text="Ascending" />
+
+                    <RadioButton
+                        android:id="@+id/descTitle"
+                        android:layout_width="match_parent"
+                        android:buttonTint="@color/three_color"
+                        android:layout_height="wrap_content"
+                        android:text="Descending" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Author"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleradiogroup" />
+
+                <ImageButton
+                    android:id="@+id/godowauthor"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowright"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleradiogroup"
+                    tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck,TouchTargetSizeCheck" />
+
+                <ImageButton
+                    android:id="@+id/goupauthor"
+                    android:layout_width="26dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/two_color"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_arrowdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleradiogroup"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <RadioGroup
+                    android:id="@+id/authorradiogroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+                    <RadioButton
+                        android:id="@+id/ascAuthor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:buttonTint="@color/three_color"
+                        android:text="Ascending" />
+
+                    <RadioButton
+                        android:id="@+id/descAuthor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/three_color"
+                        android:text="Descending" />
+                </RadioGroup>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/exitfilter"
+            android:id="@+id/exitsort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -50,7 +180,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/checkfilter"
+            android:id="@+id/checksort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

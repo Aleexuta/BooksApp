@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -19,6 +18,8 @@ import com.example.booksapp.Books.CoverType;
 import com.example.booksapp.Books.IBook;
 import com.example.booksapp.Books.Language;
 import com.example.booksapp.Books.ReadFrom;
+import com.example.booksapp.DB.DBManager;
+import com.example.booksapp.DB.DatabaseHelper;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -28,10 +29,6 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -65,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     assert data != null;
                     Uri path = data.getData();
                     try {
+
                         OpenExcelFile(path);
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -1,7 +1,9 @@
 package com.example.booksapp;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +16,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.booksapp.Books.NewBook;
+import com.example.booksapp.DB.DBManager;
 import com.example.booksapp.Filters.FilterFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -154,6 +157,51 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         myListAdapter=new MyListAdapter(getActivity(),booklist);
         listview.setAdapter(myListAdapter);
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void SortList(String field)
+    {
+        if(field.equals("TitleAsc"))
+        {
+            myListAdapter.SortByTitle();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("AuthorAsc"))
+        {
+            myListAdapter.SortByAuthor();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("BothAscAsc"))
+        {
+            myListAdapter.SortByTitleAscAuthorAsc();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("TitleDesc"))
+        {
+            myListAdapter.ReverseByTitle();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("AuthorDesc"))
+        {
+            myListAdapter.ReverseByAuthor();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("BothAscDesc"))
+        {
+            myListAdapter.SortByTitleAscAuthorDesc();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("BothDescDesc"))
+        {
+            myListAdapter.SortByTitleDescAuthorDesc();
+            listview.setAdapter(myListAdapter);
+        }
+        if(field.equals("BothDescAsc"))
+        {
+            myListAdapter.SortByTitleDescAuthorAsc();
+            listview.setAdapter(myListAdapter);
+        }
+    }
+
     FilterFragment m_filtrefragment=new FilterFragment();
     SortFragment m_sortfragment=new SortFragment();
     @Override

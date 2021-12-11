@@ -22,16 +22,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.booksapp.Books.CoverType;
-import com.example.booksapp.DatabaseHelper;
+import com.example.booksapp.DB.DatabaseHelper;
 import com.example.booksapp.R;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class FilterThirdPage extends Fragment implements  View.OnClickListener{
 

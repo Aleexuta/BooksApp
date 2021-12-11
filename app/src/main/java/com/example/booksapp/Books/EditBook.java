@@ -20,15 +20,12 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 
-import com.example.booksapp.DBManager;
+import com.example.booksapp.DB.DBManager;
 import com.example.booksapp.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 

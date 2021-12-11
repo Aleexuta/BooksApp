@@ -1,4 +1,4 @@
-package com.example.booksapp;
+package com.example.booksapp.DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String _Language="Language";
     public static final String _Read="Read";
     public static final String _Owned="Owned";
+
     public static final String _Progress="InProgress";
     public static final String _TotalPages="TotalPages";
     public static final String _ActualPage="ActualPage";

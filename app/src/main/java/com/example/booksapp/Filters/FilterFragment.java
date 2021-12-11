@@ -18,13 +18,11 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.example.booksapp.BookViewForList;
 import com.example.booksapp.Books.BookType;
 import com.example.booksapp.Books.Language;
-import com.example.booksapp.DBManager;
-import com.example.booksapp.DatabaseHelper;
-import com.example.booksapp.Filters.FilterSecondPage;
+import com.example.booksapp.DB.DatabaseHelper;
 import com.example.booksapp.FragmentList;
 import com.example.booksapp.R;
 import com.google.android.material.chip.Chip;
@@ -33,7 +31,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 public class FilterFragment extends Fragment implements View.OnClickListener {
@@ -174,6 +171,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
             filtre.getFourth().filterData();
             Filter.Filter();
             removePages();
+
         }
         if(v.getId()==m_downgenre.getId())
         {

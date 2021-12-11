@@ -1,20 +1,23 @@
-package com.example.booksapp;
+package com.example.booksapp.DB;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
+import com.example.booksapp.BookViewForList;
 import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.BookType;
 import com.example.booksapp.Books.CoverType;
 import com.example.booksapp.Books.IBook;
 import com.example.booksapp.Books.Language;
 import com.example.booksapp.Books.ReadFrom;
+import com.example.booksapp.FragmentList;
+import com.example.booksapp.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DBManager {
     DatabaseHelper m_dbHelper;
@@ -193,6 +196,8 @@ public class DBManager {
             BookViewForList nou=new BookViewForList(id,title,author);
             list.add(nou);
         }
+        String data=list.size()+" books";
+        Toast.makeText(m_main,data,Toast.LENGTH_SHORT).show();
         return list;
     }
 
@@ -215,9 +220,14 @@ public class DBManager {
         FragmentList fr=(FragmentList)m_main.getSupportFragmentManager().findFragmentByTag("LISTA");
         assert fr != null;
         fr.loadNewListToView(list);
+        String data=list.size()+" books";
+        Toast.makeText(m_main,data,Toast.LENGTH_SHORT).show();
         return list;
     }
+    public void deleteAllBooks()
+    {
 
+    }
 
     public Cursor loadAllBooks()
     {
