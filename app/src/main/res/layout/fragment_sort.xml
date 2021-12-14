@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="60dp"
-        android:background="@color/two_color">
+        android:background="@color/two_color"
+        android:clickable="true"
+        android:focusable="true">
 
         <FrameLayout
             android:id="@+id/filterframelayout"

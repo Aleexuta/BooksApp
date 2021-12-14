@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable-anydpi/ic_add2.xml" value="0.309375" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable-anydpi/ic_arrowdown.xml" value="0.3765625" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable-anydpi/ic_menu.xml" value="0.309375" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable-anydpi/ic_plus.xml" value="0.309375" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/drawable/button_resources.xml" value="0.2875" />
@@ -22,7 +23,9 @@
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_new_book.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_sort.xml" value="0.36041666666666666" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_sort_filter.xml" value="0.3333333333333333" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/fragment_statistics.xml" value="0.3333333333333333" />
         <entry key="..\:/android studio/BooksApp2/app/src/main/res/layout/mylist.xml" value="0.3333333333333333" />
+        <entry key="..\:/android studio/BooksApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3765625" />
       </map>
     </option>
   </component>

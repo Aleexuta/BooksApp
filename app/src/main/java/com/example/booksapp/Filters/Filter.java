@@ -1,6 +1,7 @@
 package com.example.booksapp.Filters;
 
 import com.example.booksapp.DB.DBManager;
+import com.example.booksapp.SortFragment;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Filter {
     private FilterSecondPage second;
     private FilterThirdPage third;
     private FilterFourthPage fourth;
+    private SortFragment sort;
 
     static void Filter()
     {
@@ -52,6 +54,7 @@ public class Filter {
         second=new FilterSecondPage();
         third=new FilterThirdPage();
         fourth=new FilterFourthPage();
+        sort=new SortFragment();
     }
     static public Filter getInstance()
     {
@@ -59,6 +62,7 @@ public class Filter {
             instance=new Filter();
         return instance;
     }
+    public FilterFragment getFirst() { return  first; }
     public FilterSecondPage getSecond()
     {
         return second;
@@ -71,5 +75,5 @@ public class Filter {
     {
         return fourth;
     }
-
+    public SortFragment getSort(){return sort; }
 }

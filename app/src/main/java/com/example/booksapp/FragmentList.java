@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.booksapp.Books.NewBook;
 import com.example.booksapp.DB.DBManager;
+import com.example.booksapp.Filters.Filter;
 import com.example.booksapp.Filters.FilterFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,10 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
     private boolean m_allFabs=false;
     private boolean m_showssearch=false;
+
+    FilterFragment m_filtrefragment;
+    SortFragment m_sortfragment;
+
     public FragmentList() {
         // Required empty public constructor
     }
@@ -202,12 +207,13 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
         }
     }
 
-    FilterFragment m_filtrefragment=new FilterFragment();
-    SortFragment m_sortfragment=new SortFragment();
+
     @Override
     public void onClick(View view) {
         //manager.executePendingTransactions();
         //transaction.replace(R.id.fragmentLayout,new NewBookFragment()).commit();
+        m_filtrefragment= Filter.getInstance().getFirst();
+        m_sortfragment=Filter.getInstance().getSort();
         if(view.getId()==m_addbutton.getId())
         {
             FragmentManager manager= requireActivity().getSupportFragmentManager();

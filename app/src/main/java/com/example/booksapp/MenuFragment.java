@@ -34,6 +34,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Button m_search;
     private Button m_filter;
     private Button m_sort;
+    private Button m_statistics;
 
     FilterFragment filterFragment;
     SortFragment sortFragment;
@@ -87,6 +88,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         m_save=rootview.findViewById(R.id.saveList);
         m_save.setOnClickListener(this);
 
+        m_statistics=rootview.findViewById(R.id.statistics);
+        m_statistics.setOnClickListener(this);
         return rootview;
     }
 
@@ -149,6 +152,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             intent.setType("text/csv");
             intent.putExtra(Intent.EXTRA_TITLE,"backupBooks.xlsx");
             requireActivity().startActivityForResult(intent,20);
+        }
+        if(v.getId()==m_statistics.getId())
+        {
+            FragmentManager manager= requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction=   manager.beginTransaction();
+            transaction.add(R.id.fragmentLayout, new StatisticsFragment()).addToBackStack("STATISTICS").commit();
         }
     }
 

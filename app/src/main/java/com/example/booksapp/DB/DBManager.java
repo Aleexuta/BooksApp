@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.example.booksapp.BookViewForList;
 import com.example.booksapp.Books.Book;
 import com.example.booksapp.Books.BookType;
@@ -205,8 +208,6 @@ public class DBManager {
     {
         Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, columns,selection,selectionArgs,null,null,null);
 
-
-
         ArrayList<BookViewForList> list=new ArrayList<>();
         while(cursor.moveToNext())
         {
@@ -224,14 +225,119 @@ public class DBManager {
         Toast.makeText(m_main,data,Toast.LENGTH_SHORT).show();
         return list;
     }
-    public void deleteAllBooks()
-    {
-
-    }
 
     public Cursor loadAllBooks()
     {
-        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE, DatabaseHelper._COLUMNS_NAME,null,null,null,null,null);
-        return cursor;
+        return m_database.query(DatabaseHelper.BOOK_TABLE, DatabaseHelper._COLUMNS_NAME,null,null,null,null,null);
+    }
+    public ArrayList<DataEntry> getReadBooksPerYear()
+    {
+        ArrayList<DataEntry> map=new ArrayList<>();
+
+        String[] columns=new String[]{
+                "count(*) as Nr",
+                "substr("+DatabaseHelper._ReadDate+",1,4) as An"
+        };
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,null,null,"substr("+DatabaseHelper._ReadDate+",1,4)",null,DatabaseHelper._ReadDate);
+        while(cursor.moveToNext())
+        {
+            Integer count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
+            String year=cursor.getString(cursor.getColumnIndexOrThrow("An"));
+
+            map.add(new ValueDataEntry(year,count));
+        }
+        return map;
+    }
+
+    public ArrayList<DataEntry> getOwnedBooksPerYear()
+    {
+        ArrayList<DataEntry> map=new ArrayList<>();
+
+        String[] columns=new String[]{
+                "count(*) as Nr",
+                "substr("+DatabaseHelper._PurchaseDate+",1,4) as An"
+        };
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,null,null,"substr("+DatabaseHelper._PurchaseDate+",1,4)",null,DatabaseHelper._PurchaseDate);
+        while(cursor.moveToNext())
+        {
+            Integer count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
+            String year=cursor.getString(cursor.getColumnIndexOrThrow("An"));
+
+            map.add(new ValueDataEntry(year,count));
+        }
+        return map;
+    }
+    public ArrayList<DataEntry> getReadBooksPerMonth(String year)
+    {
+        ArrayList<DataEntry> map=new ArrayList<>();
+        Integer[] value=new Integer[13];
+        String[] columns=new String[]{
+                "count(*) as Nr",
+                "substr("+DatabaseHelper._ReadDate+",6,2) as Luna"
+        };
+        ArrayList<String> selectionArgs = new ArrayList<>();
+        selectionArgs.add(year);
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,
+                "substr("+DatabaseHelper._ReadDate+",1,4) =?",selectionArgs.toArray(new String[0]),
+                "substr("+DatabaseHelper._ReadDate+",6,2)",null,DatabaseHelper._ReadDate);
+        while(cursor.moveToNext())
+        {
+            int count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
+            String month=cursor.getString(cursor.getColumnIndexOrThrow("Luna"));
+            int mon=Integer.parseInt(month);
+            value[mon]=count;
+        }
+
+        map.add(new ValueDataEntry("Ian",value[1]));
+        map.add(new ValueDataEntry("Feb",value[2]));
+        map.add(new ValueDataEntry("Mar",value[3]));
+        map.add(new ValueDataEntry("Apr",value[4]));
+        map.add(new ValueDataEntry("May",value[5]));
+        map.add(new ValueDataEntry("Jun",value[6]));
+        map.add(new ValueDataEntry("Jul",value[7]));
+        map.add(new ValueDataEntry("Aug",value[8]));
+        map.add(new ValueDataEntry("Sep",value[9]));
+        map.add(new ValueDataEntry("Oct",value[10]));
+        map.add(new ValueDataEntry("Nov",value[11]));
+        map.add(new ValueDataEntry("Dec",value[12]));
+
+        return map;
+    }
+
+    public ArrayList<DataEntry> geOwnedBooksPerMonth(String year)
+    {
+        ArrayList<DataEntry> map=new ArrayList<>();
+        Integer[] value=new Integer[13];
+        String[] columns=new String[]{
+                "count(*) as Nr",
+                "substr("+DatabaseHelper._PurchaseDate+",6,2) as Luna"
+        };
+        ArrayList<String> selectionArgs = new ArrayList<>();
+        selectionArgs.add(year);
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,
+                "substr("+DatabaseHelper._PurchaseDate+",1,4) =?",selectionArgs.toArray(new String[0]),
+                "substr("+DatabaseHelper._PurchaseDate+",6,2)",null,DatabaseHelper._PurchaseDate);
+        while(cursor.moveToNext())
+        {
+            int count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
+            String month=cursor.getString(cursor.getColumnIndexOrThrow("Luna"));
+            int mon=Integer.parseInt(month);
+            value[mon]=count;
+        }
+
+        map.add(new ValueDataEntry("Ian",value[1]));
+        map.add(new ValueDataEntry("Feb",value[2]));
+        map.add(new ValueDataEntry("Mar",value[3]));
+        map.add(new ValueDataEntry("Apr",value[4]));
+        map.add(new ValueDataEntry("May",value[5]));
+        map.add(new ValueDataEntry("Jun",value[6]));
+        map.add(new ValueDataEntry("Jul",value[7]));
+        map.add(new ValueDataEntry("Aug",value[8]));
+        map.add(new ValueDataEntry("Sep",value[9]));
+        map.add(new ValueDataEntry("Oct",value[10]));
+        map.add(new ValueDataEntry("Nov",value[11]));
+        map.add(new ValueDataEntry("Dec",value[12]));
+
+        return map;
     }
 }

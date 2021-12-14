@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class NewBook extends Fragment implements View.OnClickListener {
     public NewBook() {
@@ -168,11 +170,15 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 m_readfromspinner.setVisibility(View.VISIBLE);
                 m_readdate.setVisibility(View.VISIBLE);
                 m_totalpages.setVisibility(View.VISIBLE);
+                m_acutalpage.setVisibility(View.GONE);
             } else {
                 m_ratbar.setVisibility((View.GONE));
                 m_readfromspinner.setVisibility(View.GONE);
                 m_readdate.setVisibility(View.GONE);
-                m_totalpages.setVisibility(View.GONE);
+                if(!m_progress.isChecked())
+                    m_totalpages.setVisibility(View.GONE);
+                else
+                    m_acutalpage.setVisibility(View.VISIBLE);
             }
             return;
         }
@@ -195,7 +201,8 @@ public class NewBook extends Fragment implements View.OnClickListener {
                 m_totalpages.setVisibility(View.VISIBLE);
                 m_acutalpage.setVisibility(View.VISIBLE);
             } else {
-                m_totalpages.setVisibility(View.GONE);
+                if(!m_read.isChecked())
+                    m_totalpages.setVisibility(View.GONE);
                 m_acutalpage.setVisibility(View.GONE);
             }
             return;
@@ -208,7 +215,7 @@ public class NewBook extends Fragment implements View.OnClickListener {
         int clid=m_close.getId();
         if(idv==clid)
         {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
             return;
         }
 
@@ -222,7 +229,10 @@ public class NewBook extends Fragment implements View.OnClickListener {
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_readdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                    if(month<10)
+                        m_readdate.setText(year+"-0"+(month+1)+"-"+dayOfMonth);
+                    else
+                        m_readdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -238,7 +248,10 @@ public class NewBook extends Fragment implements View.OnClickListener {
             DatePickerDialog picker=new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    m_boughtdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                    if(month<10)
+                        m_boughtdate.setText(year+"-0"+(month+1)+"-"+dayOfMonth);
+                    else
+                        m_boughtdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
                 }
             },year,month,day);
             picker.show();
@@ -253,91 +266,169 @@ public class NewBook extends Fragment implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
     private void getBook() {
-        IBook newbook;
-        //in functie de ce am biffat creez un anumit tip de carte;
+        try {
+            IBook newbook;
+            //in functie de ce am biffat creez un anumit tip de carte;
 
-        String titlu = m_titlu.getText().toString();
-        String autor = m_autor.getText().toString();
-        BookType gen = (BookType) m_genre.getSelectedItem();
-        Language lang = (Language) m_language.getSelectedItem();
-        String obs = m_obs.getText().toString();
-        boolean toread = m_toread.isChecked();
-        boolean tobuy = m_tobuy.isChecked();
+            String unknown="unknown";
+            String titlu = m_titlu.getText().toString();
+            if(titlu.equals(""))
+                titlu=unknown;
+            String autor = m_autor.getText().toString();
+            if(autor.equals(""))
+                autor=unknown;
+            BookType gen = (BookType) m_genre.getSelectedItem();
+            Language lang = (Language) m_language.getSelectedItem();
+            String obs = m_obs.getText().toString();
+            boolean toread = m_toread.isChecked();
+            boolean tobuy = m_tobuy.isChecked();
 
-        boolean owned = m_owned.isChecked();
-        boolean read = m_read.isChecked();
-        boolean progress = m_progress.isChecked();
+            boolean owned = m_owned.isChecked();
+            boolean read = m_read.isChecked();
+            boolean progress = m_progress.isChecked();
 
-        if (owned) {
-            CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
-            String pub=m_publicatie.getText().toString();
-            String year=m_year.getText().toString();
+            if (owned) {
+                CoverType ct = (CoverType) m_coverbooktypespinner.getSelectedItem();
+                String pub = m_publicatie.getText().toString();
+                if(pub.equals(""))
+                    pub=unknown;
+                String year = m_year.getText().toString();
+                if(year.equals(""))
+                    year=unknown;
 
-            if (progress && read) {
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
+                String boughtdate=m_boughtdate.getText().toString();
+                if(boughtdate.equals(""))
+                    boughtdate=unknown;
 
-                float rat =m_ratbar.getRating();
-                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+                if (progress && read) {
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
 
-                newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
-                        , ct, pub,
-                       year, m_boughtdate.getText().toString(), tp, tp, rat, rf, m_readdate.getText().toString());
-            } else if (progress) {
+                    float rat = m_ratbar.getRating();
+                    ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+
+                    String readdate=m_readdate.getText().toString();
+                    if(readdate.equals(""))
+                        readdate=unknown;
 
 
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
-                int ap = Integer.parseInt(m_acutalpage.getText().toString());
 
-                newbook = Book.getOwnedProgressBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        ct,pub, year, m_boughtdate.getText().toString(), tp, ap);
+                    newbook = Book.getOwnedProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy
+                            , ct, pub,
+                            year, boughtdate, tp, tp, rat, rf, readdate);
 
-            } else if (read) {
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
+                } else if (progress) {
 
-                float rat =m_ratbar.getRating();
-                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
 
-                newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        ct, pub, year,
-                        m_boughtdate.getText().toString(), tp, rat, rf, m_readdate.getText().toString());
-            } else {
-                newbook = Book.getOwnedBook(titlu, autor, gen, obs, lang, toread, tobuy, ct,
-                        pub, year, m_boughtdate.getText().toString());
+                    total=m_acutalpage.getText().toString();
+                    int ap;
+                    if(total.equals(""))
+                        ap=0;
+                    else
+                        ap = Integer.parseInt(total);
+
+                    newbook = Book.getOwnedProgressBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                            ct, pub, year, boughtdate, tp, ap);
+
+                } else if (read) {
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
+
+                    float rat = m_ratbar.getRating();
+                    ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+
+                    String readdate=m_readdate.getText().toString();
+                    if(readdate.equals(""))
+                        readdate=unknown;
+
+                    newbook = Book.getOwnedReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                            ct, pub, year,
+                            boughtdate, tp, rat, rf,readdate);
+                } else {
+                    newbook = Book.getOwnedBook(titlu, autor, gen, obs, lang, toread, tobuy, ct,
+                            pub, year,boughtdate);
+                }
+
+            } else//nu e cumparata
+            {
+                if (progress && read) {
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
+
+
+                    float rat = m_ratbar.getRating();
+                    ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+
+                    String readdate=m_readdate.getText().toString();
+                    if(readdate.equals(""))
+                        readdate=unknown;
+
+                    newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
+                            tp, tp, rat, rf, readdate);
+                } else if (progress) {
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
+
+                    total=m_acutalpage.getText().toString();
+                    int ap;
+                    if(total.equals(""))
+                        ap=0;
+                    else
+                        ap = Integer.parseInt(total);
+                    newbook = Book.getProgressBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, ap);
+                } else if (read) {
+                    String total=m_totalpages.getText().toString();
+                    int tp;
+                    if(total.equals(""))
+                        tp=0;
+                    else
+                        tp = Integer.parseInt(total);
+
+                    float rat = m_ratbar.getRating();
+                    ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
+
+                    String readdate=m_readdate.getText().toString();
+                    if(readdate.equals(""))
+                        readdate=unknown;
+
+                    newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, readdate);
+                } else {
+                    newbook = Book.getSimpleBook(titlu, autor, gen, obs, lang, toread, tobuy);
+                }
             }
+            //trimitem inapoi noua carte in baza de date
+            DBManager db = DBManager.getInstance();
+            if (db != null)
+                db.insert(newbook);
 
-        } else//nu e cumparata
-        {
-            if (progress && read) {
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
-                int ap = Integer.parseInt(m_acutalpage.getText().toString());
-
-                float rat =m_ratbar.getRating();
-                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
-
-                newbook = Book.getProgressReadBook(titlu, autor, gen, obs, lang, toread, tobuy,
-                        tp, ap, rat, rf, m_readdate.getText().toString());
-            } else if (progress) {
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
-                int ap = Integer.parseInt(m_acutalpage.getText().toString());
-
-                newbook = Book.getProgressBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, ap);
-            } else if (read) {
-                int tp = Integer.parseInt(m_totalpages.getText().toString());
-
-                float rat =m_ratbar.getRating();
-                ReadFrom rf = (ReadFrom) m_readfromspinner.getSelectedItem();
-
-                newbook = Book.getReadBook(titlu, autor, gen, obs, lang, toread, tobuy, tp, rat, rf, m_readdate.getText().toString());
-            } else {
-                newbook = Book.getSimpleBook(titlu, autor, gen, obs, lang, toread, tobuy);
-            }
+            requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         }
-        //trimitem inapoi noua carte in baza de date
-        DBManager db = DBManager.getInstance();
-        if (db != null)
-            db.insert(newbook);
-
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        catch (Exception e)
+        {
+            Toast.makeText(requireContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 
