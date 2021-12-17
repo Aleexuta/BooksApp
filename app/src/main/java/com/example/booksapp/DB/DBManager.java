@@ -238,7 +238,7 @@ public class DBManager {
                 "count(*) as Nr",
                 "substr("+DatabaseHelper._ReadDate+",1,4) as An"
         };
-        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,null,null,"substr("+DatabaseHelper._ReadDate+",1,4)",null,DatabaseHelper._ReadDate);
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,DatabaseHelper._ReadDate+"!=?",new String[]{"null"},"substr("+DatabaseHelper._ReadDate+",1,4)",null,DatabaseHelper._ReadDate);
         while(cursor.moveToNext())
         {
             Integer count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
@@ -257,7 +257,7 @@ public class DBManager {
                 "count(*) as Nr",
                 "substr("+DatabaseHelper._PurchaseDate+",1,4) as An"
         };
-        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,null,null,"substr("+DatabaseHelper._PurchaseDate+",1,4)",null,DatabaseHelper._PurchaseDate);
+        Cursor cursor=m_database.query(DatabaseHelper.BOOK_TABLE,columns,DatabaseHelper._PurchaseDate+"!=?",new String[]{"null"},"substr("+DatabaseHelper._PurchaseDate+",1,4)",null,DatabaseHelper._PurchaseDate);
         while(cursor.moveToNext())
         {
             Integer count=Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("Nr")));
