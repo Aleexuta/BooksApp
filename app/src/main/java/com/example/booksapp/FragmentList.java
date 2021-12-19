@@ -46,6 +46,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
     private TextView m_filtertext;
     private TextView m_sorttext;
 
+    private TextView m_emptylist;
     private boolean m_allFabs=false;
     private boolean m_showssearch=false;
 
@@ -85,6 +86,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
             getExitTransition();
 
        // Cursor cursor=dbManager.fetch();
+        m_emptylist=rootview.findViewById(R.id.emptylisttext);
 
         listview=(ListView) rootview.findViewById(R.id.listlayout);
         loadListToView();
@@ -159,6 +161,10 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
     public void loadListToView()
     {
         booklist= dbManager.loadAllData(); //iei lista din  baza de date cu o functie;
+        if(booklist.size()>0)
+            m_emptylist.setVisibility(View.GONE);
+        else
+            m_emptylist.setVisibility(View.VISIBLE);
         myListAdapter=new MyListAdapter(getActivity(),booklist);
         listview.setAdapter(myListAdapter);
     }
