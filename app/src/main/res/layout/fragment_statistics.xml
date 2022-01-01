@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/two_color">
 
@@ -83,11 +83,13 @@
 
         </com.anychart.AnyChartView>
 
+
         <TextView
             android:id="@+id/detailstext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:text="No year" />
