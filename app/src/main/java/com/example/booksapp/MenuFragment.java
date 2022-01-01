@@ -150,7 +150,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("text/csv");
-            intent.putExtra(Intent.EXTRA_TITLE,"backupBooks.xlsx");
+            intent.putExtra(Intent.EXTRA_TITLE,"backupBooks.xls");
             requireActivity().startActivityForResult(intent,20);
         }
         if(v.getId()==m_statistics.getId())

@@ -27,6 +27,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.io.IOException;
@@ -120,9 +121,16 @@ public class MainActivity extends AppCompatActivity {
         Iterator<Cell> cellIter = myRow.cellIterator();
         HSSFCell cell;
         for (int colno = 0; colno < DatabaseHelper.NO_COLUMNS; colno++) {
-            cell = (HSSFCell) cellIter.next();
-            if (colno == 0)
-                type = Integer.parseInt(cell.toString());
+            if(cellIter.hasNext())
+                cell = (HSSFCell) cellIter.next();
+            else break;
+            if (colno == 0) {
+                CellType celltype=cell.getCellTypeEnum();
+                if(celltype==CellType.FORMULA)
+                    type=(int)cell.getNumericCellValue();
+                else
+                    type=Integer.parseInt(cell.toString());
+            }
             if (colno == 1)
                 title = cell.toString();
             if (colno == 2)
@@ -151,10 +159,14 @@ public class MainActivity extends AppCompatActivity {
                 year = cell.toString();
             if (colno == 13)
                 purchasedate = cell.toString();
-            if (colno == 14)
-                totalpages = Integer.parseInt(cell.toString());
-            if (colno == 15)
-                bookmark = Integer.parseInt(cell.toString());
+            if (colno == 14) {
+                Double tp =Double.valueOf( cell.toString());
+                totalpages=tp.intValue();
+            }
+            if (colno == 15) {
+                Double tp =Double.valueOf( cell.toString());
+                bookmark=tp.intValue();
+            }
             if (colno == 16)
                 rat = Float.parseFloat(cell.toString());
             if (colno == 17)
