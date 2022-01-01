@@ -91,27 +91,27 @@ public class DBManager {
                 String tit=cursor.getString(1);
                 String aut=cursor.getString(2);
                 BookType bt=BookType.valueOf(cursor.getString(3));
-                String obs=cursor.getString(4);
-                Language lg=Language.valueOf(cursor.getString(5));
+                String obs=cursor.getString(19);
+                Language lg=Language.valueOf(cursor.getString(4));
 
-                boolean tr= cursor.getString(6).equals("1");
-                boolean tb= cursor.getString(7).equals("1");
-                boolean p= cursor.getString(8).equals("1");
-                boolean r= cursor.getString(9).equals("1");
-                boolean o= cursor.getString(10).equals("1");
+                boolean tr= cursor.getString(5).equals("1");
+                boolean tb= cursor.getString(6).equals("1");
+                boolean p= cursor.getString(7).equals("1");
+                boolean r= cursor.getString(8).equals("1");
+                boolean o= cursor.getString(9).equals("1");
 
-                String rd=cursor.getString(19);
-                String pd=cursor.getString(14);
+                String rd=cursor.getString(18);
+                String pd=cursor.getString(13);
 
-                String cv=cursor.getString(11);//cover
-                String pub=cursor.getString(12);
-                String year= cursor.getString(13);
+                String cv=cursor.getString(10);//cover
+                String pub=cursor.getString(11);
+                String year= cursor.getString(12);
 
-                String tp=cursor.getString(15);
-                String ap=cursor.getString(16);
-                String rat=cursor.getString(17);
+                String tp=cursor.getString(14);
+                String ap=cursor.getString(15);
+                String rat=cursor.getString(16);
 
-                String rf=cursor.getString(18);
+                String rf=cursor.getString(17);
 
                 int tip=Integer.parseInt(cursor.getString(0));
 

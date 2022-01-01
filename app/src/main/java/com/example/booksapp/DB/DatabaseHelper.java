@@ -38,11 +38,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DB_NAME="BOOKSAPP.DB";
     static final int DB_VERSION=1;
 
-    static public String[] _COLUMNS_NAME={_Type,_Title,_Author,_Genre,
-            _Obs,_Language,
+    static public String[] _COLUMNS_NAME={_Type,_Title,_Author,_Genre,_Language,
             _Toread,_Tobuy,_Progress,_Read,_Owned,
             _Cover,_Publisher,_Year,_PurchaseDate,
-            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate};
+            _TotalPages,_ActualPage,_Rating,_ReadFrom,_ReadDate,
+            _Obs};
 
     private static final String CREATE_TABLE =" create table "+BOOK_TABLE+"("+
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+

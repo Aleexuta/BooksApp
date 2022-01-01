@@ -129,37 +129,37 @@ public class MainActivity extends AppCompatActivity {
                 author = cell.toString();
             if (colno == 3)
                 genre = cell.toString();
-            if (colno == 4)
-                obs = cell.toString();
-            if (colno == 5)
-                language = cell.toString();
-            if (colno == 6)
-                tr = cell.toString().equals("1");
-            if (colno == 7)
-                tb = cell.toString().equals("1");
-            if (colno == 8)
-                p = cell.toString().equals("1");
-            if (colno == 9)
-                r = cell.toString().equals("1");
-            if (colno == 10)
-                o = cell.toString().equals("1");
-            if (colno == 11)
-                cover = cell.toString();
-            if (colno == 12)
-                publisher = cell.toString();
-            if (colno == 13)
-                year = cell.toString();
-            if (colno == 14)
-                purchasedate = cell.toString();
-            if (colno == 15)
-                totalpages = Integer.parseInt(cell.toString());
-            if (colno == 16)
-                bookmark = Integer.parseInt(cell.toString());
-            if (colno == 17)
-                rat = Float.parseFloat(cell.toString());
-            if (colno == 18)
-                readfrom = cell.toString();
             if (colno == 19)
+                obs = cell.toString();
+            if (colno == 4)
+                language = cell.toString();
+            if (colno == 5)
+                tr = cell.toString().equals("1");
+            if (colno == 6)
+                tb = cell.toString().equals("1");
+            if (colno == 7)
+                p = cell.toString().equals("1");
+            if (colno == 8)
+                r = cell.toString().equals("1");
+            if (colno == 9)
+                o = cell.toString().equals("1");
+            if (colno == 10)
+                cover = cell.toString();
+            if (colno == 11)
+                publisher = cell.toString();
+            if (colno == 12)
+                year = cell.toString();
+            if (colno == 13)
+                purchasedate = cell.toString();
+            if (colno == 14)
+                totalpages = Integer.parseInt(cell.toString());
+            if (colno == 15)
+                bookmark = Integer.parseInt(cell.toString());
+            if (colno == 16)
+                rat = Float.parseFloat(cell.toString());
+            if (colno == 17)
+                readfrom = cell.toString();
+            if (colno == 18)
                 readdate = cell.toString();
         }
 
