@@ -125,8 +125,8 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/closeall"
-                android:layout_width="33dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"

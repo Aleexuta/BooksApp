@@ -242,6 +242,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
 
                 m_morebutton.extend();
                 m_lessbutton.show();
+                m_morebutton.setVisibility(View.INVISIBLE);
 
                 m_sorttext.setVisibility(View.VISIBLE);
                 m_filtertext.setVisibility(View.VISIBLE);
@@ -261,6 +262,7 @@ public class FragmentList extends Fragment implements  View.OnClickListener{
                 m_morebutton.shrink();
                 m_lessbutton.hide();
 
+                m_morebutton.setVisibility(View.VISIBLE);
 
                 listview.setPadding(0,16,0,0);
                 listview.smoothScrollToPosition(0);

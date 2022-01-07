@@ -304,7 +304,7 @@ public class EditBook extends Fragment implements  View.OnClickListener {
             DatePickerDialog picker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    if(month<10)
+                    if(month<9)
                         m_readdate.setText(year+"-0"+(month+1)+"-"+dayOfMonth);
                     else
                         m_readdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
@@ -322,7 +322,7 @@ public class EditBook extends Fragment implements  View.OnClickListener {
             DatePickerDialog picker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    if(month<10)
+                    if(month<9)
                         m_boughtdate.setText(year+"-0"+(month+1)+"-"+dayOfMonth);
                     else
                         m_boughtdate.setText(year+"-"+(month+1)+"-"+dayOfMonth);
